@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InputService : MonoBehaviour
@@ -35,18 +33,18 @@ public class InputService : MonoBehaviour
 
 
 
-        Look();
-        Move();
+        ReadLookInput();
+        ReadMoveInput();
     }
 
 
-    void Look()
+    void ReadLookInput()
     {
         _lookInput.x = Input.GetAxis("Mouse X");
         _lookInput.y = Input.GetAxis("Mouse Y");
     }
 
-    void Move()
+    void ReadMoveInput()
     {
         _moveInput.x = Input.GetAxis("Horizontal");
         _moveInput.y = Input.GetAxis("Vertical");
