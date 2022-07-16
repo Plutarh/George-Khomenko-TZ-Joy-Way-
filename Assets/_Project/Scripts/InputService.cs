@@ -15,8 +15,6 @@ public class InputService : MonoBehaviour
 
     public static Action SpawnScarecrow;
 
-    private Vector2 _oldMousePosition;
-
     private void Awake()
     {
         get = this;
@@ -27,6 +25,16 @@ public class InputService : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
             SpawnScarecrow?.Invoke();
 
+        if (Input.GetMouseButtonDown(0))
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Cursor.lockState = CursorLockMode.Confined;
+
+
+
         Look();
         Move();
     }
@@ -34,8 +42,8 @@ public class InputService : MonoBehaviour
 
     void Look()
     {
-        _lookInput = (Vector2)Input.mousePosition - _oldMousePosition;
-        _oldMousePosition = Input.mousePosition;
+        _lookInput.x = Input.GetAxis("Mouse X");
+        _lookInput.y = Input.GetAxis("Mouse Y");
     }
 
     void Move()

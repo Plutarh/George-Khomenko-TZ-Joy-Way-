@@ -16,48 +16,33 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private Transform _followTarget;
 
     [SerializeField] private LayerMask cameraCollidersLayer;
+    [SerializeField] private float _rotationMultiplier = 5;
 
     private InputService _inputService;
     private Cinemachine3rdPersonFollow _thirdPersonFollow;
 
 
-    private const float _threshold = 0.01f;
+    private const float THRESHOLD = 0.01f;
     private float _cinemachineTargetYaw;
     private float _cinemachineTargetPitch;
 
-    public float rotationMultiplier = 5;
 
-    [SerializeField] private Player _player;
-
-
-
-    public void Construct(Player player, InputService inputService)
-    {
-        _player = player;
-        _inputService = inputService;
-    }
-
-    private void Awake()
-    {
-        GetComponents();
-        Init();
-    }
-
-    private void Start()
-    {
-        GetComponents();
-    }
+    private Player _player;
 
 
     private void LateUpdate()
     {
         if (_player == null) return;
+        if (Cursor.lockState != CursorLockMode.Locked) return;
         CameraRotation();
-        // Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 5, Color.red);
     }
 
-    void Init()
+    public void Initialize(Player player, InputService inputService)
     {
+        GetComponents();
+
+        _player = player;
+        _inputService = inputService;
         _followTarget = _player.CameraRoot;
         _virtualCamera.Follow = _followTarget;
 
@@ -67,31 +52,28 @@ public class PlayerCamera : MonoBehaviour
 
         _thirdPersonFollow.CameraCollisionFilter = cameraCollidersLayer;
 
-
     }
 
     void GetComponents()
     {
         _virtualCamera = GetComponent<CinemachineVirtualCamera>();
         _thirdPersonFollow = _virtualCamera.AddCinemachineComponent<Cinemachine3rdPersonFollow>();
-        _inputService = InputService.get;
     }
-
 
     private void CameraRotation()
     {
-        if (_inputService.LookInput.sqrMagnitude >= _threshold && !_lockCameraPosition)
+        if (_inputService.LookInput.sqrMagnitude >= THRESHOLD && !_lockCameraPosition)
         {
             float deltaTimeMultiplier = 1;
 
-            _cinemachineTargetYaw += _inputService.LookInput.x * deltaTimeMultiplier * rotationMultiplier;
-            _cinemachineTargetPitch += -_inputService.LookInput.y * deltaTimeMultiplier * rotationMultiplier;
+            _cinemachineTargetYaw += _inputService.LookInput.x * deltaTimeMultiplier * _rotationMultiplier;
+            _cinemachineTargetPitch += -_inputService.LookInput.y * deltaTimeMultiplier * _rotationMultiplier;
+
         }
 
         // Огранчиваем повороты до 360 градусов
         _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
         _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, _bottomClamp, _topClamp);
-
 
         _player.CameraRoot.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + _cameraAngleOverride, _cinemachineTargetYaw, 0.0f);
     }

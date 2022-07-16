@@ -58,8 +58,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_NoiseProfile: {fileID: 11400000, guid: 20a705aea2d80e0478fb89b6f43d8530, type: 2}
   m_PivotOffset: {x: 0, y: 0, z: 0}
-  m_AmplitudeGain: 1
-  m_FrequencyGain: 1
+  m_AmplitudeGain: 0
+  m_FrequencyGain: 0
   mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &3174965139260852604
 GameObject:
@@ -149,6 +149,5 @@ MonoBehaviour:
   _followTarget: {fileID: 0}
   cameraCollidersLayer:
     serializedVersion: 2
-    m_Bits: 0
-  rotationMultiplier: 5
-  _player: {fileID: 0}
+    m_Bits: 1
+  _rotationMultiplier: 13
