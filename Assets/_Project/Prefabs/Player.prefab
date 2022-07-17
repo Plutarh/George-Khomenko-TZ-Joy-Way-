@@ -1127,6 +1127,7 @@ GameObject:
   - component: {fileID: 8337935121268947814}
   - component: {fileID: 8283733541192232558}
   - component: {fileID: 8332458922654044311}
+  - component: {fileID: 793457002878762726}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1186,6 +1187,45 @@ MonoBehaviour:
   _health: 0
   _headBone: {fileID: 0}
   _cameraRoot: {fileID: 1807120130997065105}
+  _targetRotation: 0
+  _horizontalAnimationMotion: 0
+  _verticalAnimationMotion: 0
+  _rotationSmoothTime: 0.12
+  _rotationVelocity: 0
+  _targetDirection: {x: 0, y: 0, z: 0}
+  _mainCamera: {fileID: 0}
+  _moveSpeed: 10
+  _backwardMoveSpeed: 7
+  _sprintSpeed: 15
+  _speedChangeRate: 3
+  _currentMoveSpeed: 0
+  _fallTimeoutDelta: 0
+  _fallTimeout: 0.2
+  _jumpHeight: 2
+  _jumpTimeout: 0.1
+  _verticalVelocity: 0
+  attackSpeed: 1
+  aimLayers:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!143 &793457002878762726
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8332458922654044308}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.96, z: 0}
 --- !u!1 &8332469944433179102
 GameObject:
   m_ObjectHideFlags: 0
