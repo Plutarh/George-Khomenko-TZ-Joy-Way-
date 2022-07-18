@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 [RequireComponent(typeof(PlayerMover))]
 public class Player : Pawn
@@ -16,11 +15,20 @@ public class Player : Pawn
     [SerializeField] private Weapon _leftHandWeapon;
     [SerializeField] private Weapon _rightHandWeapon;
 
+    [SerializeField] private Transform _leftWeaponIKParent;
+    [SerializeField] private Transform _rightWeaponIKParent;
+
+    [SerializeField] private TwoBoneIKConstraint _leftHandIK;
+    [SerializeField] private TwoBoneIKConstraint _rightHandIK;
+
     public override void Awake()
     {
         base.Awake();
 
         _mainCamera = Camera.main;
+
+        ResetIK(_leftHandIK);
+        ResetIK(_rightHandIK);
     }
 
     public override void Update()
@@ -35,6 +43,11 @@ public class Player : Pawn
         {
             _rightHandWeapon.Shoot(GetAimPoint());
         }
+    }
+
+    void ResetIK(TwoBoneIKConstraint iKConstraint)
+    {
+        iKConstraint.weight = 0;
     }
 
     public Vector3 GetAimDirection()

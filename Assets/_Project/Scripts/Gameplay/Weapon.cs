@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    public bool IsPicked => _isPicked;
+
     [SerializeField] private Transform _muzzle;
     [SerializeField] private Projectile _projectilePrefab;
     [SerializeField] private float _damage;
@@ -11,6 +13,23 @@ public class Weapon : MonoBehaviour
     [SerializeField] private GameObject _owner;
     [SerializeField] private List<ScriptableEffect> _effectsOnHit = new List<ScriptableEffect>();
 
+    [SerializeField] private string _weaponName;
+
+    private bool _isPicked;
+
+    private FloatingObject _floatingObject;
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (_weaponName == string.Empty)
+        {
+            _weaponName = name;
+            UnityEditor.EditorUtility.SetDirty(this);
+        }
+    }
+
+#endif
     void Start()
     {
 
@@ -24,7 +43,21 @@ public class Weapon : MonoBehaviour
     public Weapon PickUp(GameObject owner)
     {
         _owner = owner;
+        _isPicked = true;
+
+        if (_floatingObject)
+            Destroy(_floatingObject);
+
         return this;
+    }
+
+    public void Drop()
+    {
+        _isPicked = false;
+        _owner = null;
+
+        if (_floatingObject == null)
+            _floatingObject = gameObject.AddComponent<FloatingObject>();
     }
 
     public void Shoot(Vector3 direction)
@@ -40,10 +73,10 @@ public class Weapon : MonoBehaviour
         Vector3 projectileDirection = direction - _muzzle.transform.position;
         createdProjectile.SetMoveDirection(projectileDirection.normalized * _projectileMoveSpeed);
     }
+
+    private void OnDestroy()
+    {
+        GlobalEvents.OnWeaponDestroyed?.Invoke(_weaponName);
+    }
 }
 
-public interface IWeapon
-{
-    void Shoot();
-    string GetAnimationName();
-}

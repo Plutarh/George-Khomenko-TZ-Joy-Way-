@@ -15,6 +15,13 @@ public class ScarecrowSpawner : MonoBehaviour
     private void Awake()
     {
         InputService.SpawnScarecrow += SpawnScarecrow;
+
+
+    }
+
+    private void Start()
+    {
+        SpawnScarecrow();
     }
 
     void SpawnScarecrow()

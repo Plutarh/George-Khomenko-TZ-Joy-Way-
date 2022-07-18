@@ -87,6 +87,7 @@ public class PlayerMover : MonoBehaviour
             TryToJump();
 
         if (Input.GetMouseButtonDown(0)) _battleState = true;
+        if (Input.GetMouseButtonDown(1)) _battleState = false;
     }
 
 
