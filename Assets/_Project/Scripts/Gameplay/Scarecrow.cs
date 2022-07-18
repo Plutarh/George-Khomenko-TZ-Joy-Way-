@@ -9,6 +9,7 @@ public class Scarecrow : Pawn
 
     Rigidbody _rigidbody;
 
+    public ScriptableEffect burn;
 
     public override void Awake()
     {
@@ -41,6 +42,8 @@ public class Scarecrow : Pawn
             testData.damage = 50;
             testData.velocity = Random.onUnitSphere;
             TakeDamage(testData);
+
+            AddEffect(burn.InitializeEffect(gameObject, testData));
         }
     }
 

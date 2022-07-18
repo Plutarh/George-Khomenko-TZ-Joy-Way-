@@ -29,19 +29,20 @@ public class BurnTimedEffect : TimedEffect
         _burnScriptableEffect = (BurnScriptableEffect)Effect;
 
         CreateFX();
-
+        ApplyMaterialColor();
         currentDuration = totalDuration;
         _timeToHit = _burnScriptableEffect.timerToHit;
     }
 
     public override void End()
     {
-        if (_burningFX == null)
+        RemoveMaterialColor();
+
+        if (_burningFX != null)
         {
-            Debug.LogError("Cannot destroy nulled fx");
-            return;
+            GameObject.Destroy(_burningFX.gameObject);
         }
-        GameObject.Destroy(_burningFX.gameObject);
+
     }
 
     public override void Tick(float delta)
@@ -63,6 +64,32 @@ public class BurnTimedEffect : TimedEffect
 
             _timeToHit = _burnScriptableEffect.timerToHit;
         }
+    }
+
+    void ApplyMaterialColor()
+    {
+        var targetSkin = _target.GetGameObject().GetComponent<Pawn>().Skin;
+
+        if (targetSkin == null) return;
+
+        MaterialPropertyBlock redColor = new MaterialPropertyBlock();
+
+        redColor.SetColor("_BaseColor", Color.red * 2.3f);
+
+        targetSkin.SetPropertyBlock(redColor);
+    }
+
+    void RemoveMaterialColor()
+    {
+        var targetSkin = _target.GetGameObject().GetComponent<Pawn>().Skin;
+
+        if (targetSkin == null) return;
+
+        MaterialPropertyBlock whiteColor = new MaterialPropertyBlock();
+
+        whiteColor.SetColor("_BaseColor", Color.white);
+
+        targetSkin.SetPropertyBlock(whiteColor);
     }
 
     void CreateFX()
