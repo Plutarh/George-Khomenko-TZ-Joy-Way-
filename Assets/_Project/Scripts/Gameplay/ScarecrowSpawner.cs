@@ -14,9 +14,7 @@ public class ScarecrowSpawner : MonoBehaviour
 
     private void Awake()
     {
-        InputService.SpawnScarecrow += SpawnScarecrow;
-
-
+        GlobalEvents.SpawnScarecrow += SpawnScarecrow;
     }
 
     private void Start()
@@ -60,7 +58,7 @@ public class ScarecrowSpawner : MonoBehaviour
 
     private void OnDestroy()
     {
-        InputService.SpawnScarecrow -= SpawnScarecrow;
+        GlobalEvents.SpawnScarecrow -= SpawnScarecrow;
     }
 
     private void OnDrawGizmos()

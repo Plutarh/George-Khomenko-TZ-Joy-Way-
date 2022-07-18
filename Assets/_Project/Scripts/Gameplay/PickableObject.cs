@@ -48,14 +48,15 @@ public class PickableObject : MonoBehaviour
     {
         Destroy(_sphereCollider);
         Destroy(_body);
+        _floatingObject.StopFloating();
         Destroy(_floatingObject);
         Destroy(this);
     }
 
     public void PickUp(GameObject owner)
     {
-        pickable.PickUp(owner);
         RemoveComponents();
+        pickable.PickUp(owner);
     }
 
     private void OnTriggerEnter(Collider other)

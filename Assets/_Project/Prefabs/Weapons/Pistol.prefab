@@ -243,6 +243,7 @@ MonoBehaviour:
   _owner: {fileID: 6490816957514086352, guid: 65c3ac15bd017534ab83b5ec6a7a8e3f, type: 3}
   _effectsOnHit: []
   _weaponName: Pistol
+  _isIK: 1
 --- !u!1 &5659914409675956662
 GameObject:
   m_ObjectHideFlags: 0

@@ -63,6 +63,7 @@ public class PlayerMover : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _characterController = GetComponent<CharacterController>();
+
         _animator.SetLayerWeight(1, 1);
         _mainCamera = Camera.main;
     }

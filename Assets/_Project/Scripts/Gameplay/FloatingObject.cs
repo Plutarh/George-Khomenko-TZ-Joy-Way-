@@ -30,4 +30,15 @@ public class FloatingObject : MonoBehaviour
     {
         floatingTween = transform.DOMoveY(transform.position.y + _floatHeight, _floatingTime).SetLoops(-1, LoopType.Yoyo);
     }
+
+    public void StopFloating()
+    {
+        if (floatingTween == null) return;
+
+        Debug.LogError("Dstroy floating");
+        floatingTween.Kill();
+        floatingTween = null;
+
+    }
+
 }

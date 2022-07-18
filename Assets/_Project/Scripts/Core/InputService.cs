@@ -8,10 +8,16 @@ public class InputService : MonoBehaviour
     public Vector2 MoveInput => _moveInput;
     public Vector2 LookInput => _lookInput;
 
+    [SerializeField] private KeyCode _leftHandPickDropKey = KeyCode.Q;
+    [SerializeField] private KeyCode _rightHandPickDropKey = KeyCode.E;
+    [SerializeField] private KeyCode _jumpKey;
+    [SerializeField] private KeyCode _cursorConfineKey;
+
     private Vector2 _moveInput;
     private Vector2 _lookInput;
 
-    public static Action SpawnScarecrow;
+    public static Action<EHandType> OnHandPickDropButtonDown;
+    public static Action<EHandType> OnAttackButtonDown;
 
     private void Awake()
     {
@@ -20,23 +26,35 @@ public class InputService : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-            SpawnScarecrow?.Invoke();
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-            Cursor.lockState = CursorLockMode.Confined;
-
-
-
+        ReadButtonsInput();
         ReadLookInput();
         ReadMoveInput();
     }
 
+    void ReadButtonsInput()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+            GlobalEvents.SpawnScarecrow?.Invoke();
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (Cursor.lockState != CursorLockMode.Locked)
+                Cursor.lockState = CursorLockMode.Locked;
+
+            OnAttackButtonDown?.Invoke(EHandType.Left);
+        }
+
+        if (Input.GetMouseButtonDown(1))
+            OnAttackButtonDown?.Invoke(EHandType.Right);
+
+        if (Input.GetKeyDown(_cursorConfineKey))
+            Cursor.lockState = CursorLockMode.Confined;
+
+        if (Input.GetKeyDown(_leftHandPickDropKey))
+            OnHandPickDropButtonDown?.Invoke(EHandType.Left);
+        if (Input.GetKeyDown(_rightHandPickDropKey))
+            OnHandPickDropButtonDown?.Invoke(EHandType.Right);
+    }
 
     void ReadLookInput()
     {
@@ -50,4 +68,10 @@ public class InputService : MonoBehaviour
         _moveInput.y = Input.GetAxis("Vertical");
     }
 
+}
+
+public enum EHandType
+{
+    Left,
+    Right
 }

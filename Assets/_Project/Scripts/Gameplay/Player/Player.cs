@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
@@ -12,16 +14,10 @@ public class Player : Pawn
 
     Camera _mainCamera;
 
-    [SerializeField] private Weapon _leftHandWeapon;
-    [SerializeField] private Weapon _rightHandWeapon;
+    [SerializeField] private List<PlayerWeapons> _playerWeapons = new List<PlayerWeapons>();
 
-    [SerializeField] private Transform _leftWeaponIKParent;
-    [SerializeField] private Transform _rightWeaponIKParent;
-
-    [SerializeField] private TwoBoneIKConstraint _leftHandIK;
-    [SerializeField] private TwoBoneIKConstraint _rightHandIK;
-
-    PlayerMover _playerMover;
+    private PlayerMover _playerMover;
+    private ObjectPicker _objectPicker;
 
     public override void Awake()
     {
@@ -29,36 +25,108 @@ public class Player : Pawn
 
         _mainCamera = Camera.main;
         _playerMover = GetComponent<PlayerMover>();
-        ResetIK(_leftHandIK);
-        ResetIK(_rightHandIK);
+        _objectPicker = GetComponent<ObjectPicker>();
+
+        InputService.OnAttackButtonDown += TryToAttack;
+        InputService.OnHandPickDropButtonDown += DropWeaponFromHand;
+
+        _objectPicker.OnPickedUpObject += TryEquipWeapon;
+
+        ResetHandsIK();
     }
 
     public override void Update()
     {
         base.Update();
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (_leftHandWeapon != null)
-            {
-                _leftHandWeapon.Shoot(GetAimPoint());
-                _playerMover.battleState = true;
-            }
-        }
-        if (Input.GetMouseButtonDown(1))
-        {
-            if (_rightHandWeapon != null)
-            {
-                _rightHandWeapon.Shoot(GetAimPoint());
-                _playerMover.battleState = true;
-            }
-
-        }
     }
 
-    void ResetIK(TwoBoneIKConstraint iKConstraint)
+    void TryToAttack(EHandType handType)
     {
-        iKConstraint.weight = 0;
+        var foundedHand = _playerWeapons.FirstOrDefault(pw => pw.handType == handType);
+
+        if (foundedHand == null)
+        {
+            Debug.LogError($"Cannot find hand : {handType}");
+            return;
+        }
+
+        var weaponInHand = foundedHand.weapon;
+
+        if (weaponInHand == null)
+        {
+            Debug.LogError($"Cannot find weapon in hand : {handType}");
+            return;
+        }
+
+        _playerMover.battleState = true;
+        weaponInHand.Shoot(GetAimPoint());
+    }
+
+    void DropWeaponFromHand(EHandType handType)
+    {
+        var foundedHand = _playerWeapons.FirstOrDefault(pw => pw.handType == handType);
+
+        if (foundedHand == null)
+        {
+            Debug.LogError($"Cannot find hand : {handType}");
+            return;
+        }
+
+        var weaponInHand = foundedHand.weapon;
+
+        if (weaponInHand == null)
+        {
+            Debug.LogError($"Cannot find weapon in hand : {handType}");
+            return;
+        }
+
+        weaponInHand.transform.SetParent(null);
+        weaponInHand.Drop();
+        weaponInHand = null;
+    }
+
+    void TryEquipWeapon(IPickable pickable, EHandType handType)
+    {
+        if (!(pickable is Weapon)) return;
+        EquipWeapon(pickable as Weapon, handType);
+    }
+
+    void EquipWeapon(Weapon weapon, EHandType handType)
+    {
+        var foundedHand = _playerWeapons.FirstOrDefault(pw => pw.handType == handType);
+
+        if (foundedHand == null) return;
+
+        if (foundedHand.weapon != null) foundedHand.weapon.Drop();
+
+        foundedHand.weapon = weapon;
+
+        if (weapon.IsIK)
+        {
+            SmoothEnableHandIK(foundedHand.handIK);
+            weapon.transform.SetParent(foundedHand.weaponIKParent);
+        }
+        else
+        {
+            weapon.transform.SetParent(foundedHand.weaponParent);
+        }
+
+        weapon.transform.localPosition = Vector3.zero;
+        weapon.transform.localRotation = Quaternion.identity;
+        Debug.LogError("Setup new pos");
+    }
+
+    void SmoothEnableHandIK(TwoBoneIKConstraint iKConstraint)
+    {
+        iKConstraint.weight = 1;
+    }
+
+    void ResetHandsIK()
+    {
+        foreach (var playerWeapon in _playerWeapons)
+        {
+            playerWeapon.handIK.weight = 0;
+        }
     }
 
     public Vector3 GetAimDirection()
@@ -82,4 +150,22 @@ public class Player : Pawn
 
         return rayPoint;
     }
+
+    private void OnDestroy()
+    {
+        InputService.OnAttackButtonDown -= TryToAttack;
+        InputService.OnHandPickDropButtonDown -= DropWeaponFromHand;
+        _objectPicker.OnPickedUpObject -= TryEquipWeapon;
+
+    }
+}
+
+[System.Serializable]
+public class PlayerWeapons
+{
+    public Weapon weapon;
+    public EHandType handType;
+    public Transform weaponIKParent;
+    public Transform weaponParent;
+    public TwoBoneIKConstraint handIK;
 }
