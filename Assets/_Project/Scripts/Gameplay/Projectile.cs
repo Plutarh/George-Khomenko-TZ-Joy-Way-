@@ -53,6 +53,11 @@ public class Projectile : MonoBehaviour
         _damageData.velocity = _body.velocity;
         damageable.TakeDamage(_damageData);
 
+        foreach (var item in damageable.GetTimedEffects())
+        {
+            Debug.LogError($"{item.name}");
+        }
+
         _effectsOnHit.ForEach(effect => damageable.AddEffect(effect.InitializeEffect(damageable.GetGameObject(), _damageData)));
 
         DestroyProjectile();

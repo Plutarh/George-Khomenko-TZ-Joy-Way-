@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMover : MonoBehaviour
 {
+    public bool battleState;
+
     [SerializeField] private float _targetRotation;
 
     [Header("Animations Motion")]
@@ -41,12 +43,13 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private float _jumpTimeout = 0.1f;
     [SerializeField] private float _verticalVelocity;
 
-
+    [SerializeField] private float _battleStateTimeout = 3;
+    [SerializeField] private float _battleStateTimeoutDelta;
 
     [SerializeField] private float attackSpeed;
 
     private Animator _animator;
-    private bool _battleState;
+
     private bool _blockMovement;
     private float _gravity = -9.81f;
     private float _jumpTimeoutDelta;
@@ -82,16 +85,23 @@ public class PlayerMover : MonoBehaviour
         Rotation();
         Gravity();
         UpdateMotionAnimator();
+        BattleStateTimer();
 
         if (Input.GetKeyDown(KeyCode.Space))
             TryToJump();
-
-        if (Input.GetMouseButtonDown(0)) _battleState = true;
-        if (Input.GetMouseButtonDown(1)) _battleState = false;
     }
 
+    void BattleStateTimer()
+    {
+        if (battleState == false) return;
 
+        if (_battleStateTimeoutDelta > 0)
+        {
+            _battleStateTimeoutDelta -= Time.deltaTime;
 
+            if (_battleStateTimeoutDelta <= 0) battleState = false;
+        }
+    }
 
     public void Rotation()
     {
@@ -101,14 +111,13 @@ public class PlayerMover : MonoBehaviour
             return;
         }
 
-
         Vector3 inputDirection = new Vector3(_inputService.MoveInput.x, 0.0f, _inputService.MoveInput.y).normalized;
 
         // Поворачиваем игрока по камере
-        if (_inputService.MoveInput != Vector2.zero || _battleState)
+        if (_inputService.MoveInput != Vector2.zero || battleState)
         {
             // Если игрок в батл стейте то поворот по Z будет игнорироваться
-            _targetRotation = Mathf.Atan2(_battleState ? 0 : inputDirection.x, _battleState ? 0 : inputDirection.z) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
+            _targetRotation = Mathf.Atan2(battleState ? 0 : inputDirection.x, battleState ? 0 : inputDirection.z) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
 
             float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, _rotationSmoothTime);
 
@@ -185,7 +194,7 @@ public class PlayerMover : MonoBehaviour
             if (_inputService.MoveInput.magnitude != 0)
             {
                 // в бэтл стейте есть отыгрываем анимации во всех направлениях
-                if (_battleState)
+                if (battleState)
                 {
                     int verticalDir = 0;
                     if (_inputService.MoveInput.y != 0)

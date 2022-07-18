@@ -74,6 +74,7 @@ public class Pawn : MonoBehaviour, IDamageable
 
     public void AddEffect(TimedEffect effect)
     {
+
         if (_timedEffects.ContainsKey(effect.Effect))
         {
             _timedEffects[effect.Effect].Activate();
@@ -122,5 +123,10 @@ public class Pawn : MonoBehaviour, IDamageable
     public GameObject GetGameObject()
     {
         return gameObject;
+    }
+
+    public List<ScriptableEffect> GetTimedEffects()
+    {
+        return _timedEffects.Keys.ToList();
     }
 }

@@ -9,13 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e67696ad24dc0f546bf2836dd43a76e2, type: 3}
-  m_Name: BurnEffect
+  m_Script: {fileID: 11500000, guid: b81941a2ca0648d44a76bdbc0fe85ac1, type: 3}
+  m_Name: WetnessEffect
   m_EditorClassIdentifier: 
-  duration: 10
-  unlimitedDuration: 0
+  duration: 0
+  unlimitedDuration: 1
   isDurationRefreshed: 1
   isStackable: 0
-  timerToHit: 1
-  damage: 5
-  burnFX: {fileID: 5147264526970508098, guid: ed445d9b1a94a124d9060936c0e42ca5, type: 3}
+  wetnessFX: {fileID: 0}

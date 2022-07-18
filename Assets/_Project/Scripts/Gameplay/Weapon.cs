@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public class Weapon : MonoBehaviour, IPickable
 {
     public bool IsPicked => _isPicked;
+    public bool IsIK => _isIK;
 
     [SerializeField] private Transform _muzzle;
     [SerializeField] private Projectile _projectilePrefab;
@@ -14,10 +15,10 @@ public class Weapon : MonoBehaviour
     [SerializeField] private List<ScriptableEffect> _effectsOnHit = new List<ScriptableEffect>();
 
     [SerializeField] private string _weaponName;
+    [SerializeField] private bool _isIK;
 
     private bool _isPicked;
 
-    private FloatingObject _floatingObject;
 
 #if UNITY_EDITOR
     private void OnValidate()
@@ -40,15 +41,10 @@ public class Weapon : MonoBehaviour
 
     }
 
-    public Weapon PickUp(GameObject owner)
+    public void PickUp(GameObject owner)
     {
         _owner = owner;
         _isPicked = true;
-
-        if (_floatingObject)
-            Destroy(_floatingObject);
-
-        return this;
     }
 
     public void Drop()
@@ -56,8 +52,7 @@ public class Weapon : MonoBehaviour
         _isPicked = false;
         _owner = null;
 
-        if (_floatingObject == null)
-            _floatingObject = gameObject.AddComponent<FloatingObject>();
+        gameObject.AddComponent<PickableObject>();
     }
 
     public void Shoot(Vector3 direction)

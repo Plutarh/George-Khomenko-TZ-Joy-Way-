@@ -33,7 +33,6 @@ public class WeaponSpawner : MonoBehaviour
         }
 
         foundedWeaponSpawnInfo.CurrentLiveCount--;
-
     }
 
     void SpawnWeapons()
@@ -51,7 +50,9 @@ public class WeaponSpawner : MonoBehaviour
                 spawnPosition = wsi.spawnPoints[0].position;
 
             var createdWeapon = Instantiate(wsi.weaponPrefab, wsi.spawnPoints[wsi.CurrentLiveCount].position + Vector3.up, Quaternion.identity);
+
             createdWeapon.Drop();
+
             wsi.CurrentLiveCount++;
         }
     }

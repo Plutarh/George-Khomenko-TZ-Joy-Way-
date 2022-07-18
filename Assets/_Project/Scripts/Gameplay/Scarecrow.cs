@@ -34,6 +34,13 @@ public class Scarecrow : Pawn
     public override void Update()
     {
         base.Update();
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            DamageData testDamage = new DamageData();
+            AddEffect(burn.InitializeEffect(gameObject, testDamage));
+        }
+
     }
 
     public override void TakeDamage(DamageData damageData)

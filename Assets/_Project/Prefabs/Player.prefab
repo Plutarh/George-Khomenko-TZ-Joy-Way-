@@ -104,6 +104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 407583494}
   - component: {fileID: 407583495}
+  - component: {fileID: 8558030066779620421}
   m_Layer: 0
   m_Name: HeadAim
   m_TagString: Untagged
@@ -182,6 +183,24 @@ MonoBehaviour:
       z: 1
   m_SourceObjectsGUIToggle: 1
   m_SettingsGUIToggle: 1
+--- !u!114 &8558030066779620421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407583493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc7fc2b27f62c704799c8e8c1c109832, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _multiAimConstraint: {fileID: 0}
+  _aimTarget: {fileID: 5444297337141754942}
+  _weightChangeSpeed: 5
+  _aimSpeed: 6
+  _forwardDistance: 15
+  _disableAim: 0
 --- !u!1 &888755429
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,6 +211,7 @@ GameObject:
   m_Component:
   - component: {fileID: 888755430}
   - component: {fileID: 888755431}
+  - component: {fileID: 5982622826722782296}
   m_Layer: 0
   m_Name: BodyRig
   m_TagString: Untagged
@@ -270,6 +290,24 @@ MonoBehaviour:
       z: 1
   m_SourceObjectsGUIToggle: 1
   m_SettingsGUIToggle: 1
+--- !u!114 &5982622826722782296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 888755429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc7fc2b27f62c704799c8e8c1c109832, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _multiAimConstraint: {fileID: 0}
+  _aimTarget: {fileID: 5444297337141754942}
+  _weightChangeSpeed: 5
+  _aimSpeed: 6
+  _forwardDistance: 15
+  _disableAim: 0
 --- !u!1 &1619893709
 GameObject:
   m_ObjectHideFlags: 0
@@ -1715,6 +1753,7 @@ GameObject:
   - component: {fileID: 4597008310547041470}
   - component: {fileID: 4928182632507364516}
   - component: {fileID: 93878035}
+  - component: {fileID: 3079427118383138499}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1817,6 +1856,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c88101096cb6c94ba44014348e9c6a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battleState: 0
   _targetRotation: 0
   _horizontalAnimationMotion: 0
   _verticalAnimationMotion: 0
@@ -1836,9 +1876,11 @@ MonoBehaviour:
   _currentMoveSpeed: 0
   _fallTimeoutDelta: 0
   _fallTimeout: 0.2
-  _jumpHeight: 0
+  _jumpHeight: 2
   _jumpTimeout: 0.1
   _verticalVelocity: 0
+  _battleStateTimeout: 3
+  _battleStateTimeoutDelta: 0
   attackSpeed: 0
 --- !u!114 &4928182632507364516
 MonoBehaviour:
@@ -1942,6 +1984,20 @@ MonoBehaviour:
   - m_Rig: {fileID: 9158247410527198596}
     m_Active: 1
   m_Effectors: []
+--- !u!114 &3079427118383138499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8332458922654044308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7370c2e773255c43b9b6281d70134e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nearPickableObjects: []
+  _closectPickableObject: {fileID: 0}
 --- !u!1 &8332469944433179102
 GameObject:
   m_ObjectHideFlags: 0

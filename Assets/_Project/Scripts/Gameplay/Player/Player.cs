@@ -21,12 +21,14 @@ public class Player : Pawn
     [SerializeField] private TwoBoneIKConstraint _leftHandIK;
     [SerializeField] private TwoBoneIKConstraint _rightHandIK;
 
+    PlayerMover _playerMover;
+
     public override void Awake()
     {
         base.Awake();
 
         _mainCamera = Camera.main;
-
+        _playerMover = GetComponent<PlayerMover>();
         ResetIK(_leftHandIK);
         ResetIK(_rightHandIK);
     }
@@ -37,11 +39,20 @@ public class Player : Pawn
 
         if (Input.GetMouseButtonDown(0))
         {
-            _leftHandWeapon.Shoot(GetAimPoint());
+            if (_leftHandWeapon != null)
+            {
+                _leftHandWeapon.Shoot(GetAimPoint());
+                _playerMover.battleState = true;
+            }
         }
         if (Input.GetMouseButtonDown(1))
         {
-            _rightHandWeapon.Shoot(GetAimPoint());
+            if (_rightHandWeapon != null)
+            {
+                _rightHandWeapon.Shoot(GetAimPoint());
+                _playerMover.battleState = true;
+            }
+
         }
     }
 
