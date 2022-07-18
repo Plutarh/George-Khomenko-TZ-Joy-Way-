@@ -34,53 +34,43 @@ public class Scarecrow : Pawn
     public override void Update()
     {
         base.Update();
-
-        // TODO remove
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            DamageData testData = new DamageData();
-            testData.damage = 50;
-            testData.velocity = Random.onUnitSphere;
-            TakeDamage(testData);
-
-            AddEffect(burn.InitializeEffect(gameObject, testData));
-        }
     }
 
     public override void TakeDamage(DamageData damageData)
     {
         base.TakeDamage(damageData);
 
-        if (IsDead)
-            DeathImpact(damageData.velocity);
-        else
-            RotationImpact(damageData.velocity);
+        RotationImpact(damageData.velocity);
     }
 
     void RotationImpact(Vector3 velocity)
     {
+        if (IsDead) return;
         if (_rotationPivotPoint == null)
         {
             Debug.LogError($"Rotation pivot point nulled {transform.name}", this);
             return;
         }
 
-        _rotationPivotPoint.transform.DOPunchRotation(velocity * Random.Range(1, 10), 0.2f, 10, 1).OnComplete(() => _rotationPivotPoint.transform.DORotate(Vector3.zero, 0.1f));
+        velocity = Vector3.ClampMagnitude(velocity, Random.Range(1, 5));
+        _rotationPivotPoint.transform.DOPunchRotation(velocity, 0.2f, 3, 0.5f).OnComplete(() => _rotationPivotPoint.transform.DOLocalRotateQuaternion(Quaternion.identity, 0.1f));
     }
 
     void DeathImpact(Vector3 velocity)
     {
+        _rotationPivotPoint.transform.localRotation = Quaternion.identity;
+
         _rigidbody.isKinematic = false;
         _rigidbody.useGravity = true;
 
-        _rigidbody.AddForce(velocity * Random.Range(2, 5), ForceMode.Impulse);
+        velocity = Vector3.ClampMagnitude(velocity, Random.Range(1, 5));
+        _rigidbody.AddForce(velocity, ForceMode.Impulse);
     }
 
-
-    public override void Death()
+    public override void Death(DamageData damageData)
     {
-        base.Death();
+        base.Death(damageData);
 
-
+        DeathImpact(damageData.velocity);
     }
 }

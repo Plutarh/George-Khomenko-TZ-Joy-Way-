@@ -44,7 +44,6 @@ public class PlayerMover : MonoBehaviour
 
 
     [SerializeField] private float attackSpeed;
-    [SerializeField] private LayerMask aimLayers;
 
     private Animator _animator;
     private bool _battleState;
@@ -86,30 +85,12 @@ public class PlayerMover : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
             TryToJump();
+
+        if (Input.GetMouseButtonDown(0)) _battleState = true;
     }
 
 
-    public Vector3 GetAimDirection()
-    {
-        return _mainCamera.transform.forward;
-    }
 
-    public Vector3 GetAimPoint()
-    {
-        Vector3 rayPoint = Vector3.zero;
-
-        RaycastHit hit;
-        Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
-
-        float raycastDistance = 1600;
-
-        if (Physics.Raycast(ray, out hit, raycastDistance, aimLayers))
-            rayPoint = hit.point;
-        else
-            rayPoint = ray.GetPoint(raycastDistance);
-
-        return rayPoint;
-    }
 
     public void Rotation()
     {

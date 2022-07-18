@@ -72,7 +72,7 @@ public class BurnTimedEffect : TimedEffect
         if (targetSkin == null) return;
 
         targetSkin.material.SetFloat("_FresnelPower", 1f);
-        targetSkin.material.SetColor("_FresnelColor", Color.red * 3.3f);
+        targetSkin.material.SetColor("_FresnelColor", Color.red * 3f);
     }
 
     void RemoveMaterialColor()

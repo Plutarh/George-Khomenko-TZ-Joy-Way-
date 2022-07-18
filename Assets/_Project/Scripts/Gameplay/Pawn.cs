@@ -49,7 +49,7 @@ public class Pawn : MonoBehaviour, IDamageable
         {
             _health = 0;
             _isDead = true;
-            Death();
+            Death(damageData);
         }
     }
 
@@ -58,7 +58,7 @@ public class Pawn : MonoBehaviour, IDamageable
         _health = _maxHealth;
     }
 
-    public virtual void Death()
+    public virtual void Death(DamageData damageData)
     {
         OnDeath?.Invoke();
     }
