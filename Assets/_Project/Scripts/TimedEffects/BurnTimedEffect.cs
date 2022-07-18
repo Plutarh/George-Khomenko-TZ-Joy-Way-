@@ -69,14 +69,10 @@ public class BurnTimedEffect : TimedEffect
     void ApplyMaterialColor()
     {
         var targetSkin = _target.GetGameObject().GetComponent<Pawn>().Skin;
-
         if (targetSkin == null) return;
 
-        MaterialPropertyBlock redColor = new MaterialPropertyBlock();
-
-        redColor.SetColor("_BaseColor", Color.red * 2.3f);
-
-        targetSkin.SetPropertyBlock(redColor);
+        targetSkin.material.SetFloat("_FresnelPower", 1f);
+        targetSkin.material.SetColor("_FresnelColor", Color.red * 3.3f);
     }
 
     void RemoveMaterialColor()
@@ -85,11 +81,8 @@ public class BurnTimedEffect : TimedEffect
 
         if (targetSkin == null) return;
 
-        MaterialPropertyBlock whiteColor = new MaterialPropertyBlock();
-
-        whiteColor.SetColor("_BaseColor", Color.white);
-
-        targetSkin.SetPropertyBlock(whiteColor);
+        targetSkin.material.SetFloat("_FresnelPower", 10f);
+        targetSkin.material.SetColor("_FresnelColor", Color.black);
     }
 
     void CreateFX()

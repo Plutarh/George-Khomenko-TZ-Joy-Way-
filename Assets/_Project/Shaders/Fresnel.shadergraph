@@ -570,7 +570,7 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "r": 1.0,
+        "r": 0.0,
         "g": 0.0,
         "b": 0.0,
         "a": 0.0
@@ -1039,7 +1039,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "CellDensity",
     "m_StageCapability": 3,
-    "m_Value": 20.559999465942384,
+    "m_Value": 20.0,
     "m_DefaultValue": 5.0,
     "m_Labels": []
 }
@@ -2036,13 +2036,13 @@
     },
     "m_Name": "NoisePower",
     "m_DefaultReferenceName": "Vector1_c15c6aa2dc7d4306919fd839733797b1",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "_NousePower",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
-    "m_Value": 1.0,
+    "m_Value": 10.0,
     "m_FloatType": 0,
     "m_RangeValues": {
         "x": 0.0,
@@ -2231,8 +2231,8 @@
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
-    "m_Value": 10.0,
-    "m_FloatType": 1,
+    "m_Value": 1.5800000429153443,
+    "m_FloatType": 0,
     "m_RangeValues": {
         "x": 0.0,
         "y": 10.0
