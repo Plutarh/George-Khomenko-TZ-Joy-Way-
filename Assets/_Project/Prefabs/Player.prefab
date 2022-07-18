@@ -1217,7 +1217,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 0
   _health: 0
-  _headBone: {fileID: 0}
+  _headBone: {fileID: 8334454305809073484}
+  _skin: {fileID: 8236856453138479820}
   _cameraRoot: {fileID: 1807120130997065105}
 --- !u!143 &793457002878762726
 CharacterController:

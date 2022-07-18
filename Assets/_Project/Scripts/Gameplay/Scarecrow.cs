@@ -9,6 +9,7 @@ public class Scarecrow : Pawn
 
     Rigidbody _rigidbody;
 
+
     public override void Awake()
     {
         base.Awake();
@@ -33,6 +34,7 @@ public class Scarecrow : Pawn
     {
         base.Update();
 
+        // TODO remove
         if (Input.GetKeyDown(KeyCode.T))
         {
             DamageData testData = new DamageData();

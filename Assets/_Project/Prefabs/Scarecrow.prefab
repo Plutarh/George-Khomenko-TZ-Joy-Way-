@@ -128,7 +128,9 @@ MonoBehaviour:
   _maxHealth: 1000
   _health: 0
   _headBone: {fileID: 5139883273522771665}
+  _skin: {fileID: 6122763593578340502}
   _rotationPivotPoint: {fileID: 6101046793695948213}
+  burn: {fileID: 11400000, guid: 7f9263428f110f54694be8769c197786, type: 2}
 --- !u!114 &6101046792734112427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,5 +336,10 @@ PrefabInstance:
 --- !u!4 &6105322881395370594 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4841611530678610, guid: bc6a59c177fcfa1429ae39d1360e8544, type: 3}
+  m_PrefabInstance: {fileID: 6101046792748505904}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6122763593578340502 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 23407193153993638, guid: bc6a59c177fcfa1429ae39d1360e8544, type: 3}
   m_PrefabInstance: {fileID: 6101046792748505904}
   m_PrefabAsset: {fileID: 0}
