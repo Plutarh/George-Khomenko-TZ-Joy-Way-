@@ -150,4 +150,4 @@ MonoBehaviour:
   cameraCollidersLayer:
     serializedVersion: 2
     m_Bits: 1
-  _rotationMultiplier: 13
+  _rotationMultiplier: 8
