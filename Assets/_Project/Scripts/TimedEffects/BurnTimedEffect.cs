@@ -11,13 +11,13 @@ public class BurnTimedEffect : TimedEffect
 
     float _timeToHit;
 
-    public BurnTimedEffect(ScriptableEffect buff, GameObject targetObj, DamageData damageData) : base(buff, targetObj, damageData)
+    public BurnTimedEffect(ScriptableTimedEffect buff, GameObject targetObj, DamageData damageData) : base(buff, targetObj, damageData)
     {
         _target = targetObj.GetComponent<IDamageable>();
         _whoUse = damageData.owner;
     }
 
-    public BurnTimedEffect(ScriptableEffect buff, GameObject targetObj) : base(buff, targetObj)
+    public BurnTimedEffect(ScriptableTimedEffect buff, GameObject targetObj) : base(buff, targetObj)
     {
         _target = targetObj.GetComponent<IDamageable>();
         _whoUse = damageData.owner;

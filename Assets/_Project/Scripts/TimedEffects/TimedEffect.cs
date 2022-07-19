@@ -5,7 +5,7 @@ public abstract class TimedEffect
     internal float currentDuration;
     public bool unlimitedDuration = false;
     internal float totalDuration;
-    public ScriptableEffect Effect { get; }
+    public ScriptableTimedEffect Effect { get; }
     protected readonly GameObject targetGO;
     protected readonly GameObject whoUsed;
 
@@ -15,7 +15,7 @@ public abstract class TimedEffect
 
     public DamageData damageData;
 
-    public TimedEffect(ScriptableEffect effect, GameObject targetObj, DamageData combat)
+    public TimedEffect(ScriptableTimedEffect effect, GameObject targetObj, DamageData combat)
     {
         Effect = effect;
         targetGO = targetObj;
@@ -24,7 +24,7 @@ public abstract class TimedEffect
 
     }
 
-    public TimedEffect(ScriptableEffect effect, GameObject targetObj)
+    public TimedEffect(ScriptableTimedEffect effect, GameObject targetObj)
     {
         Effect = effect;
         targetGO = targetObj;

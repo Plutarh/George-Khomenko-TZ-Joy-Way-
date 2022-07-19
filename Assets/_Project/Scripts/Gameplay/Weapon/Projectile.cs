@@ -5,7 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] protected GameObject _hitFX;
-    [SerializeField] protected List<ScriptableEffect> _effectsOnHit = new List<ScriptableEffect>();
+    [SerializeField] protected List<ScriptableTimedEffect> _effectsOnHit = new List<ScriptableTimedEffect>();
 
     protected DamageData _damageData;
     protected GameObject _owner;
@@ -31,7 +31,7 @@ public class Projectile : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(direction.normalized);
     }
 
-    public void AddScriptableEffect(ScriptableEffect newEffect)
+    public void AddScriptableEffect(ScriptableTimedEffect newEffect)
     {
         _effectsOnHit.Add(newEffect);
     }

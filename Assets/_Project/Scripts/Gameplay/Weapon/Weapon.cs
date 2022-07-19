@@ -14,7 +14,7 @@ public class Weapon : MonoBehaviour, IPickable
     [SerializeField] protected float _damage;
 
     protected GameObject _owner;
-    [SerializeField] protected List<ScriptableEffect> _effectsOnHit = new List<ScriptableEffect>();
+    [SerializeField] protected List<ScriptableTimedEffect> _effectsOnHit = new List<ScriptableTimedEffect>();
 
     [SerializeField] private string _weaponName;
     [SerializeField] private bool _isIKRequire;

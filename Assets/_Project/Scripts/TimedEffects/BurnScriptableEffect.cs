@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "HitEffects/BurnEffect")]
-public class BurnScriptableEffect : ScriptableEffect
+public class BurnScriptableEffect : ScriptableTimedEffect
 {
     public float timerToHit;
     public float damage;

@@ -4,7 +4,8 @@ using UnityEngine;
 public interface IDamageable
 {
     void TakeDamage(DamageData damageData);
-    void AddEffect(TimedEffect timedEffect);
-    List<ScriptableEffect> GetTimedEffects();
+    void AddTimedEffect(TimedEffect timedEffect);
+    List<ScriptableTimedEffect> GetTimedEffects();
+    List<Effect> GetEffects();
     GameObject GetGameObject();
 }

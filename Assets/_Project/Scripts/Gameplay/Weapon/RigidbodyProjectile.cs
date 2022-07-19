@@ -60,7 +60,7 @@ public class RigidbodyProjectile : Projectile
             Debug.LogError($"{item.name}");
         }
 
-        _effectsOnHit.ForEach(effect => damageable.AddEffect(effect.InitializeEffect(damageable.GetGameObject(), _damageData)));
+        _effectsOnHit.ForEach(effect => damageable.AddTimedEffect(effect.InitializeEffect(damageable.GetGameObject(), _damageData)));
 
         DestroyProjectile();
     }

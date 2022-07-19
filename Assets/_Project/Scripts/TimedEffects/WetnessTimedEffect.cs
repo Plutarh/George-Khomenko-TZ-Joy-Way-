@@ -9,13 +9,13 @@ public class WetnessTimedEffect : TimedEffect
 
     float _timeToHit;
 
-    public WetnessTimedEffect(ScriptableEffect buff, GameObject targetObj, DamageData damageData) : base(buff, targetObj, damageData)
+    public WetnessTimedEffect(ScriptableTimedEffect buff, GameObject targetObj, DamageData damageData) : base(buff, targetObj, damageData)
     {
         _target = targetObj.GetComponent<IDamageable>();
         _whoUse = damageData.owner;
     }
 
-    public WetnessTimedEffect(ScriptableEffect buff, GameObject targetObj) : base(buff, targetObj)
+    public WetnessTimedEffect(ScriptableTimedEffect buff, GameObject targetObj) : base(buff, targetObj)
     {
         _target = targetObj.GetComponent<IDamageable>();
         _whoUse = damageData.owner;

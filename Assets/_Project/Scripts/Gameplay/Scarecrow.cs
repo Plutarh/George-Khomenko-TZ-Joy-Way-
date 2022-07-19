@@ -9,7 +9,7 @@ public class Scarecrow : Pawn
 
     Rigidbody _rigidbody;
 
-    public ScriptableEffect burn;
+    public ScriptableTimedEffect burn;
 
     public override void Awake()
     {
@@ -38,7 +38,7 @@ public class Scarecrow : Pawn
         if (Input.GetKeyDown(KeyCode.T))
         {
             DamageData testDamage = new DamageData();
-            AddEffect(burn.InitializeEffect(gameObject, testDamage));
+            AddTimedEffect(burn.InitializeEffect(gameObject, testDamage));
         }
 
     }

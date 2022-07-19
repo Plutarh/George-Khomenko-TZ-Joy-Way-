@@ -5,6 +5,7 @@ using UnityEngine;
 public class WaterStone : Weapon
 {
     [SerializeField] private float _throwForce = 5;
+    [SerializeField] private float _wetness;
 
     public override void Shoot(Vector3 point)
     {

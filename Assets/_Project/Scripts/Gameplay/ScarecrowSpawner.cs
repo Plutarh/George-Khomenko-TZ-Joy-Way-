@@ -35,6 +35,7 @@ public class ScarecrowSpawner : MonoBehaviour
         createdScarecrow.transform.localScale = Vector3.zero;
         createdScarecrow.transform.DOScale(Vector3.one, 0.3f);
 
+        createdScarecrow.AddEffect(new Wetness(createdScarecrow.gameObject));
         GlobalEvents.OnEnemySpawned?.Invoke(createdScarecrow);
 
         return createdScarecrow;

@@ -20,7 +20,8 @@ public class Pawn : MonoBehaviour, IDamageable
     public Action OnDeath;
     public Action<DamageData> OnTakedDamage;
 
-    Dictionary<ScriptableEffect, TimedEffect> _timedEffects = new Dictionary<ScriptableEffect, TimedEffect>();
+    private Dictionary<ScriptableTimedEffect, TimedEffect> _timedEffects = new Dictionary<ScriptableTimedEffect, TimedEffect>();
+    private List<Effect> _effects = new List<Effect>();
 
     public virtual void Awake()
     {
@@ -31,7 +32,6 @@ public class Pawn : MonoBehaviour, IDamageable
     {
 
     }
-
 
     public virtual void Update()
     {
@@ -72,9 +72,8 @@ public class Pawn : MonoBehaviour, IDamageable
         return health01;
     }
 
-    public void AddEffect(TimedEffect effect)
+    public void AddTimedEffect(TimedEffect effect)
     {
-
         if (_timedEffects.ContainsKey(effect.Effect))
         {
             _timedEffects[effect.Effect].Activate();
@@ -125,8 +124,19 @@ public class Pawn : MonoBehaviour, IDamageable
         return gameObject;
     }
 
-    public List<ScriptableEffect> GetTimedEffects()
+    public List<ScriptableTimedEffect> GetTimedEffects()
     {
         return _timedEffects.Keys.ToList();
+    }
+
+    public List<Effect> GetEffects()
+    {
+        return _effects;
+    }
+
+    public void AddEffect(Effect effect)
+    {
+        if (_effects.Any(ef => ef.GetType().Name == effect.GetType().Name)) return;
+        _effects.Add(effect);
     }
 }
