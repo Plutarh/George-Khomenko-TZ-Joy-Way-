@@ -195,8 +195,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3805365599777271983}
-  - component: {fileID: 8597593380784400259}
   - component: {fileID: 3354390927907857621}
+  - component: {fileID: -7730694183235886371}
   m_Layer: 8
   m_Name: Pistol
   m_TagString: Untagged
@@ -225,26 +225,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8597593380784400259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4576940855961020949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b5b86d86d4c64040b3acdac937a09e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _muzzle: {fileID: 5523087631221297262}
-  _projectilePrefab: {fileID: 6314057622916784830, guid: 65c3ac15bd017534ab83b5ec6a7a8e3f, type: 3}
-  _damage: 100
-  _projectileMoveSpeed: 20
-  _owner: {fileID: 6490816957514086352, guid: 65c3ac15bd017534ab83b5ec6a7a8e3f, type: 3}
-  _effectsOnHit: []
-  _weaponName: Pistol
-  _isIK: 1
 --- !u!114 &3354390927907857621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -432,6 +412,27 @@ MonoBehaviour:
     fillPass:
       shader: {fileID: 0}
       serializedProperties: []
+--- !u!114 &-7730694183235886371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4576940855961020949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9913bf137708b3446bef9bc4780f9094, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _muzzle: {fileID: 5523087631221297262}
+  _projectilePrefab: {fileID: 9051981277366064967, guid: 65c3ac15bd017534ab83b5ec6a7a8e3f, type: 3}
+  _damage: 100
+  _owner: {fileID: 0}
+  _effectsOnHit: []
+  _weaponName: Pistol
+  _isIK: 1
+  _projectileMoveSpeed: 30
+  _shotPerSecond: 0.3
 --- !u!1 &5659914409675956662
 GameObject:
   m_ObjectHideFlags: 0

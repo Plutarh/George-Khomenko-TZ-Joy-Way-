@@ -17,7 +17,8 @@ public class InputService : MonoBehaviour
     private Vector2 _lookInput;
 
     public static Action<EHandType> OnHandPickDropButtonDown;
-    public static Action<EHandType> OnAttackButtonDown;
+    public static Action<EHandType> OnAttackButtonPressed;
+    public static Action<EHandType> OnAttackButtonUp;
 
     private void Awake()
     {
@@ -43,13 +44,17 @@ public class InputService : MonoBehaviour
         }
 
         if (Input.GetMouseButton(0))
-            OnAttackButtonDown?.Invoke(EHandType.Right);
+            OnAttackButtonPressed?.Invoke(EHandType.Left);
+        if (Input.GetMouseButtonUp(0))
+            OnAttackButtonUp?.Invoke(EHandType.Left);
 
         if (Input.GetMouseButton(1))
-            OnAttackButtonDown?.Invoke(EHandType.Right);
+            OnAttackButtonPressed?.Invoke(EHandType.Right);
+        if (Input.GetMouseButtonUp(1))
+            OnAttackButtonUp?.Invoke(EHandType.Right);
 
         if (Input.GetKeyDown(_cursorConfineKey))
-            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.lockState = CursorLockMode.None;
 
         if (Input.GetKeyDown(_leftHandPickDropKey))
             OnHandPickDropButtonDown?.Invoke(EHandType.Left);

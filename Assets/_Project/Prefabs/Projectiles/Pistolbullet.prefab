@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 5863637299426045290}
   - component: {fileID: 6872128670423438864}
   - component: {fileID: 5157222896463177266}
-  - component: {fileID: 6314057622916784830}
+  - component: {fileID: 9051981277366064967}
   m_Layer: 6
   m_Name: Pistolbullet
   m_TagString: Untagged
@@ -146,7 +146,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.06
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6314057622916784830
+--- !u!114 &9051981277366064967
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -155,13 +155,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6490816957514086352}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4a0ce4195fcbda4c90feb1a7047acff, type: 3}
+  m_Script: {fileID: 11500000, guid: 073bbacdc327b0d4cb1eb235c32689e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _hitFX: {fileID: 9120734471554076773, guid: 5a738ea754d9e2942887e33028e438d8, type: 3}
-  _lifeTime: 5
-  _timeToEnableGravity: 3
   _effectsOnHit: []
+  _lifeTime: 6
+  _timeToEnableGravity: 0
 --- !u!1 &7543692357070606618
 GameObject:
   m_ObjectHideFlags: 0

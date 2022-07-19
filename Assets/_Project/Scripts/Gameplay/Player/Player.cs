@@ -27,7 +27,8 @@ public class Player : Pawn
         _playerMover = GetComponent<PlayerMover>();
         _objectPicker = GetComponent<ObjectPicker>();
 
-        InputService.OnAttackButtonDown += TryToAttack;
+        InputService.OnAttackButtonPressed += TryToAttack;
+        InputService.OnAttackButtonUp += TryToStopAttack;
         InputService.OnHandPickDropButtonDown += PickDropWithHand;
         _objectPicker.OnPickedUpObject += TryEquipWeapon;
 
@@ -39,6 +40,18 @@ public class Player : Pawn
         base.Update();
     }
 
+    void TryToStopAttack(EHandType handType)
+    {
+        var foundedHand = GetHandByType(handType);
+
+        var weaponInHand = foundedHand.weapon;
+
+        if (weaponInHand == null)
+            return;
+
+        weaponInHand.StopShoot();
+    }
+
     void TryToAttack(EHandType handType)
     {
         var foundedHand = GetHandByType(handType);
@@ -46,10 +59,7 @@ public class Player : Pawn
         var weaponInHand = foundedHand.weapon;
 
         if (weaponInHand == null)
-        {
-            Debug.LogError($"Cannot find weapon in hand : {handType}");
             return;
-        }
 
         _playerMover.battleState = true;
         weaponInHand.Shoot(GetAimPoint());
@@ -99,7 +109,7 @@ public class Player : Pawn
         weaponInHand.transform.SetParent(null);
         weaponInHand.Drop();
 
-        if (weaponInHand.IsIK)
+        if (weaponInHand.IsIKRequire)
             ResetHandIK(foundedHand.handIK);
 
         foundedHand.weapon = null;
@@ -128,7 +138,7 @@ public class Player : Pawn
 
         foundedHand.weapon = weapon;
 
-        if (weapon.IsIK)
+        if (weapon.IsIKRequire)
         {
             SmoothEnableHandIK(foundedHand.handIK);
             weapon.transform.SetParent(foundedHand.weaponIKParent);
@@ -178,7 +188,8 @@ public class Player : Pawn
 
     private void OnDestroy()
     {
-        InputService.OnAttackButtonDown -= TryToAttack;
+        InputService.OnAttackButtonPressed -= TryToAttack;
+        InputService.OnAttackButtonUp -= TryToStopAttack;
         InputService.OnHandPickDropButtonDown -= PickDropWithHand;
         _objectPicker.OnPickedUpObject -= TryEquipWeapon;
 

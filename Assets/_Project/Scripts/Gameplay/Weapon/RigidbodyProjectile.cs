@@ -2,43 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class RigidbodyProjectile : Projectile
 {
-    [SerializeField] private GameObject _hitFX;
     [SerializeField] private float _lifeTime;
     [SerializeField] private float _timeToEnableGravity;
-    [SerializeField] private List<ScriptableEffect> _effectsOnHit = new List<ScriptableEffect>();
+
     private Rigidbody _body;
-    private DamageData _damageData;
     private bool _isHitted;
 
-    private void Awake()
+    public override void Awake()
     {
+        base.Awake();
         _body = GetComponent<Rigidbody>();
     }
 
-    private void Update()
+    public override void Update()
     {
+        base.Update();
+
         _lifeTime -= Time.deltaTime;
 
         if (_lifeTime <= 0)
             DestroyProjectile();
     }
 
-    public void SetDamageData(DamageData damageData)
+    public override void SetDirection(Vector3 direction)
     {
-        _damageData = damageData;
-    }
-
-    public void SetMoveDirection(Vector3 direction)
-    {
+        base.SetDirection(direction);
         _body.AddForce(direction, ForceMode.Impulse);
-        transform.rotation = Quaternion.LookRotation(direction.normalized);
-    }
-
-    public void AddScriptableEffect(ScriptableEffect newEffect)
-    {
-        _effectsOnHit.Add(newEffect);
     }
 
     void DestroyProjectile()
@@ -48,8 +39,9 @@ public class Projectile : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void Hit(IDamageable damageable)
+    public override void Hit(IDamageable damageable)
     {
+        base.Hit(damageable);
         _damageData.velocity = _body.velocity;
         damageable.TakeDamage(_damageData);
 
@@ -77,4 +69,5 @@ public class Projectile : MonoBehaviour
         Hit(damageable);
         _isHitted = true;
     }
+
 }

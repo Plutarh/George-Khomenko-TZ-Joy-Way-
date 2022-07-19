@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3469889381260601392}
-  - component: {fileID: 3898418873359781075}
   - component: {fileID: 4616438169592063076}
+  - component: {fileID: -1526529862214566102}
   m_Layer: 8
   m_Name: FireStone
   m_TagString: Untagged
@@ -33,26 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3898418873359781075
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2253015921933082496}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b5b86d86d4c64040b3acdac937a09e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _muzzle: {fileID: 6850509708134540957}
-  _projectilePrefab: {fileID: 0}
-  _damage: 0
-  _projectileMoveSpeed: 0
-  _owner: {fileID: 0}
-  _effectsOnHit: []
-  _weaponName: FireStone
-  _isIK: 0
 --- !u!114 &4616438169592063076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,6 +90,26 @@ MonoBehaviour:
     fillPass:
       shader: {fileID: 0}
       serializedProperties: []
+--- !u!114 &-1526529862214566102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2253015921933082496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dd4d506f5593ce43b5b95ef70d707f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _muzzle: {fileID: 6850509708134540957}
+  _projectilePrefab: {fileID: 4422040020291648024, guid: 21b5b518ba66de8408a0b379dee2b6bf, type: 3}
+  _damage: 1
+  _owner: {fileID: 0}
+  _effectsOnHit:
+  - {fileID: 11400000, guid: 7f9263428f110f54694be8769c197786, type: 2}
+  _weaponName: FireStone
+  _isIKRequire: 1
 --- !u!1 &6930920980059853133
 GameObject:
   m_ObjectHideFlags: 0
