@@ -430,7 +430,7 @@ MonoBehaviour:
   _owner: {fileID: 0}
   _effectsOnHit: []
   _weaponName: Pistol
-  _isIK: 1
+  _isIKRequire: 1
   _projectileMoveSpeed: 30
   _shotPerSecond: 0.3
 --- !u!1 &5659914409675956662

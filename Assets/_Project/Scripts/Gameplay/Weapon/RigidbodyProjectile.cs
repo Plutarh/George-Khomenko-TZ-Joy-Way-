@@ -14,6 +14,11 @@ public class RigidbodyProjectile : Projectile
     {
         base.Awake();
         _body = GetComponent<Rigidbody>();
+
+        if (_body == null)
+            _body = gameObject.AddComponent<Rigidbody>();
+
+        _body.useGravity = false;
     }
 
     public override void Update()
@@ -24,12 +29,17 @@ public class RigidbodyProjectile : Projectile
 
         if (_lifeTime <= 0)
             DestroyProjectile();
+
+        _timeToEnableGravity -= Time.deltaTime;
+
+        if (_timeToEnableGravity <= 0)
+            _body.useGravity = true;
     }
 
     public override void SetDirection(Vector3 direction)
     {
         base.SetDirection(direction);
-        _body.AddForce(direction, ForceMode.Impulse);
+        _body.AddForce(direction, ForceMode.VelocityChange);
     }
 
     void DestroyProjectile()
@@ -58,6 +68,8 @@ public class RigidbodyProjectile : Projectile
     private void OnTriggerEnter(Collider other)
     {
         if (_isHitted) return;
+        if (other.transform.root == _owner.transform.root) return;
+
         var damageable = other.transform.root.GetComponent<IDamageable>();
 
         if (damageable == null)

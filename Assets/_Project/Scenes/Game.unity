@@ -1862,7 +1862,7 @@ MonoBehaviour:
     - {fileID: 1164811190}
     maxLiveCount: 2
   - weaponName: WaterStone
-    weaponPrefab: {fileID: 7981059434202339298, guid: 94cad450d1d9cd14a93e625afcf41682, type: 3}
+    weaponPrefab: {fileID: 6481626349045359884, guid: 94cad450d1d9cd14a93e625afcf41682, type: 3}
     spawnPoints:
     - {fileID: 659287286}
     - {fileID: 479925393}

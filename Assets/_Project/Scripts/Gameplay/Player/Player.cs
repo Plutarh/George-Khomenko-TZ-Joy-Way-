@@ -18,6 +18,14 @@ public class Player : Pawn
 
     private PlayerMover _playerMover;
     private ObjectPicker _objectPicker;
+    private Animator _animator;
+
+    private string _currentCombatName;
+
+    [SerializeField] private List<Weapon> _delayedWeaponToShoot = new List<Weapon>();
+
+    private float _throwAnimationDelay = 0.3f;
+    private float _throwAnimationTimeout;
 
     public override void Awake()
     {
@@ -26,6 +34,7 @@ public class Player : Pawn
         _mainCamera = Camera.main;
         _playerMover = GetComponent<PlayerMover>();
         _objectPicker = GetComponent<ObjectPicker>();
+        _animator = GetComponent<Animator>();
 
         InputService.OnAttackButtonPressed += TryToAttack;
         InputService.OnAttackButtonUp += TryToStopAttack;
@@ -52,6 +61,8 @@ public class Player : Pawn
         weaponInHand.StopShoot();
     }
 
+
+
     void TryToAttack(EHandType handType)
     {
         var foundedHand = GetHandByType(handType);
@@ -62,7 +73,53 @@ public class Player : Pawn
             return;
 
         _playerMover.battleState = true;
-        weaponInHand.Shoot(GetAimPoint());
+
+        if (weaponInHand.IsAnimationRequire)
+        {
+            if (GetAttackLayerAnimationTime() >= 0.7f && Time.time > _throwAnimationTimeout)
+            {
+                _throwAnimationTimeout = Time.time + _throwAnimationDelay;
+                string animationName = weaponInHand.AnimationName + (handType == EHandType.Left ? "_M" : string.Empty);
+                _delayedWeaponToShoot.Add(weaponInHand);
+                _animator.CrossFade(animationName, 0.1f, 1);
+                Debug.Log($"Player animation {animationName}");
+                _currentCombatName = animationName;
+
+            }
+        }
+        else
+        {
+            Attack(weaponInHand);
+        }
+    }
+
+    void Throw()
+    {
+        if (_delayedWeaponToShoot.Count == 0) return;
+
+        var weaponToShoot = _delayedWeaponToShoot.FirstOrDefault();
+
+        if (weaponToShoot == null) return;
+
+        weaponToShoot.Shoot(GetAimPoint());
+        _delayedWeaponToShoot.RemoveAt(0);
+    }
+
+    float GetAttackLayerAnimationTime()
+    {
+        if (_animator.GetCurrentAnimatorStateInfo(1).IsName(_currentCombatName))
+            return _animator.GetCurrentAnimatorStateInfo(1).normalizedTime;
+        else if (_animator.GetCurrentAnimatorStateInfo(0).IsName(_currentCombatName))
+            return _animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+        else
+            return 1;
+    }
+
+
+
+    void Attack(Weapon weapon)
+    {
+        weapon.Shoot(GetAimPoint());
     }
 
     PlayerHand GetHandByType(EHandType handType)

@@ -14,6 +14,7 @@ public class ParticleProjectile : Projectile
     {
         base.Awake();
         _allParticles = GetComponentsInChildren<ParticleSystem>().ToList();
+
     }
 
     public void Emit(bool state)

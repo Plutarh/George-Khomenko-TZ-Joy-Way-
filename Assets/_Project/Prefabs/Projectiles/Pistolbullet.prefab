@@ -161,7 +161,7 @@ MonoBehaviour:
   _hitFX: {fileID: 9120734471554076773, guid: 5a738ea754d9e2942887e33028e438d8, type: 3}
   _effectsOnHit: []
   _lifeTime: 6
-  _timeToEnableGravity: 0
+  _timeToEnableGravity: 1
 --- !u!1 &7543692357070606618
 GameObject:
   m_ObjectHideFlags: 0

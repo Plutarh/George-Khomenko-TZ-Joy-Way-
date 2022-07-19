@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 547647203472311902}
-  - component: {fileID: 7981059434202339298}
   - component: {fileID: 4807702019842526558}
+  - component: {fileID: 6481626349045359884}
   m_Layer: 8
   m_Name: WaterStone
   m_TagString: Untagged
@@ -30,29 +30,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2475980970888452619}
+  - {fileID: 5553879059737250431}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7981059434202339298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5366215105932273233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b5b86d86d4c64040b3acdac937a09e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _muzzle: {fileID: 2475980970888452619}
-  _projectilePrefab: {fileID: 0}
-  _damage: 0
-  _projectileMoveSpeed: 0
-  _owner: {fileID: 0}
-  _effectsOnHit: []
-  _weaponName: WaterStone
-  _isIK: 0
 --- !u!114 &4807702019842526558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,6 +91,57 @@ MonoBehaviour:
     fillPass:
       shader: {fileID: 0}
       serializedProperties: []
+--- !u!114 &6481626349045359884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5366215105932273233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 706c08d138c5fa24bac9f6fea252bf5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _muzzle: {fileID: 5553879059737250431}
+  _projectilePrefab: {fileID: 7238814054242212990, guid: 00dd56c57bd4eda42addc85ae3503099, type: 3}
+  _damage: 0
+  _effectsOnHit: []
+  _weaponName: WaterStone
+  _isIKRequire: 0
+  _isAnimationRequire: 1
+  _animationName: Throw
+  _throwForce: 25
+--- !u!1 &7093043300231647058
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5553879059737250431}
+  m_Layer: 8
+  m_Name: Muzzle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5553879059737250431
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093043300231647058}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 547647203472311902}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7445711934183583689
 GameObject:
   m_ObjectHideFlags: 0

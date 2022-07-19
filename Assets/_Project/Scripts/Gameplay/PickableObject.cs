@@ -26,6 +26,8 @@ public class PickableObject : MonoBehaviour
         SetupRigidbody();
         SetupTriggerCollider();
         HideOutline();
+
+        transform.rotation = Quaternion.identity;
     }
 
     void SetupRigidbody()

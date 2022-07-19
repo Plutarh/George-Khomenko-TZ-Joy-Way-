@@ -6,16 +6,20 @@ public class Weapon : MonoBehaviour, IPickable
 {
     public bool IsPicked => _isPicked;
     public bool IsIKRequire => _isIKRequire;
+    public bool IsAnimationRequire => _isAnimationRequire;
+    public string AnimationName => _animationName;
 
     [SerializeField] protected Transform _muzzle;
     [SerializeField] protected Projectile _projectilePrefab;
     [SerializeField] protected float _damage;
 
-    [SerializeField] protected GameObject _owner;
+    protected GameObject _owner;
     [SerializeField] protected List<ScriptableEffect> _effectsOnHit = new List<ScriptableEffect>();
 
     [SerializeField] private string _weaponName;
     [SerializeField] private bool _isIKRequire;
+    [SerializeField] private bool _isAnimationRequire;
+    [SerializeField] private string _animationName;
 
     private bool _isPicked;
 

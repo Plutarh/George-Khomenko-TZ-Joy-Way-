@@ -7487,7 +7487,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
   NoiseModule:
-    enabled: 1
+    enabled: 0
     strength:
       serializedVersion: 2
       minMaxState: 0
@@ -8489,7 +8489,7 @@ ParticleSystem:
     m_Bounce:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -8594,7 +8594,7 @@ ParticleSystem:
         m_RotationOrder: 4
     minKillSpeed: 0
     maxKillSpeed: 10000
-    radiusScale: 1
+    radiusScale: 2
     collidesWith:
       serializedVersion: 2
       m_Bits: 129
@@ -9631,9 +9631,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1535675c7e312844ea3a0fc286d7e378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hitFX: {fileID: 0}
+  _effectsOnHit: []
   _damageParticle: {fileID: 985098277177542287}
   _allParticles: []
-  emit: 0
 --- !u!1 &1112313232047126405
 GameObject:
   m_ObjectHideFlags: 0
