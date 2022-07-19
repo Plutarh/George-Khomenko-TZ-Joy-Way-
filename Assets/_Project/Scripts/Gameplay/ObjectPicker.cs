@@ -41,6 +41,7 @@ public class ObjectPicker : MonoBehaviour
         if (_nearPickableObjects.Count == 1)
         {
             _closectPickableObject = _nearPickableObjects[0];
+            _closectPickableObject.ShowOutline();
             return;
         }
 
