@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3709739803264690663}
   - component: {fileID: 8888293238411970972}
   - component: {fileID: 5732617780253196416}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 6872128670423438864}
   - component: {fileID: 5157222896463177266}
   - component: {fileID: 6314057622916784830}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pistolbullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6839981850468975395}
   - component: {fileID: 4553073521404305344}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,7 +311,7 @@ GameObject:
   - component: {fileID: 8682233215150649278}
   - component: {fileID: 7860777824097630055}
   - component: {fileID: 2562830490617753661}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -40,11 +40,12 @@ public class InputService : MonoBehaviour
         {
             if (Cursor.lockState != CursorLockMode.Locked)
                 Cursor.lockState = CursorLockMode.Locked;
-
-            OnAttackButtonDown?.Invoke(EHandType.Left);
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButton(0))
+            OnAttackButtonDown?.Invoke(EHandType.Right);
+
+        if (Input.GetMouseButton(1))
             OnAttackButtonDown?.Invoke(EHandType.Right);
 
         if (Input.GetKeyDown(_cursorConfineKey))

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6101046792408732870}
   - component: {fileID: 6101046792408732865}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Col_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6101046792523756000}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 6101046792734112427}
   - component: {fileID: 6101046792734112424}
   - component: {fileID: 6101046792734112421}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Scarecrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6101046792878245757}
   - component: {fileID: 6101046792878245756}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Col_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +224,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6101046793695948213}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rotation Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,7 +255,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5139883273522771665}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HeadBone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,6 +286,10 @@ PrefabInstance:
     - target: {fileID: 1436178878525030, guid: bc6a59c177fcfa1429ae39d1360e8544, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Scarecrow_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1436178878525030, guid: bc6a59c177fcfa1429ae39d1360e8544, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4841611530678610, guid: bc6a59c177fcfa1429ae39d1360e8544, type: 3}
       propertyPath: m_RootOrder

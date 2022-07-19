@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3469889381260601392}
   - component: {fileID: 3898418873359781075}
   - component: {fileID: 4616438169592063076}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FireStone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b5b86d86d4c64040b3acdac937a09e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _muzzle: {fileID: 0}
+  _muzzle: {fileID: 6850509708134540957}
   _projectilePrefab: {fileID: 0}
   _damage: 0
   _projectileMoveSpeed: 0
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 3428668483457785879}
   - component: {fileID: 3560018384090475748}
   - component: {fileID: 3926978996457708358}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: w
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ Transform:
   m_GameObject: {fileID: 6930920980059853133}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.72, y: 0.72, z: 0.72}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 3469889381260601392}
   m_RootOrder: 0

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 522769206991542160}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2156645657959789179}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6124654980254799519}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5523087631221297262}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2897802559481095784}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: hammer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,7 +164,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1012840689690197162}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: slide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -197,7 +197,7 @@ GameObject:
   - component: {fileID: 3805365599777271983}
   - component: {fileID: 8597593380784400259}
   - component: {fileID: 3354390927907857621}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -441,7 +441,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8333845462330583336}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ejection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -473,7 +473,7 @@ GameObject:
   - component: {fileID: 111750644898935305}
   - component: {fileID: 5194378516867615995}
   - component: {fileID: 6909453018111321118}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: trigger 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -576,7 +576,7 @@ GameObject:
   - component: {fileID: 1189977791762646386}
   - component: {fileID: 5652314197190984067}
   - component: {fileID: 5342695260650313422}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: body 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -679,7 +679,7 @@ GameObject:
   - component: {fileID: 878239196473474221}
   - component: {fileID: 2217133726918302764}
   - component: {fileID: 7278941354957380368}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mag 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -780,7 +780,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3776664235879898118}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -812,7 +812,7 @@ GameObject:
   - component: {fileID: 983734943371712111}
   - component: {fileID: 6602012239654066801}
   - component: {fileID: 4779467997350626274}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: slide 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -915,7 +915,7 @@ GameObject:
   - component: {fileID: 5150702211101956867}
   - component: {fileID: 8718604969871082331}
   - component: {fileID: 2735252119455797800}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: hammer 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
