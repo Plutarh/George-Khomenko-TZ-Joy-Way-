@@ -12,15 +12,18 @@ public class ObjectPicker : MonoBehaviour
 
     private void Awake()
     {
-        InputService.OnHandPickDropButtonDown += PickUpClosestObject;
+        // InputService.OnHandPickDropButtonDown += PickUpClosestObject;
     }
 
-    void PickUpClosestObject(EHandType hand)
+    public void PickUpClosestObject(EHandType hand)
     {
         if (_closectPickableObject == null) return;
 
+        RemoveObject(_closectPickableObject);
         _closectPickableObject.PickUp(gameObject);
         OnPickedUpObject?.Invoke(_closectPickableObject.pickable, hand);
+
+        _closectPickableObject = null;
     }
 
     private void LateUpdate()
@@ -30,7 +33,11 @@ public class ObjectPicker : MonoBehaviour
 
     void SelectClosestPickableObject()
     {
-        if (_nearPickableObjects.Count == 0) return;
+        if (_nearPickableObjects.Count == 0)
+        {
+            _closectPickableObject = null;
+            return;
+        }
         if (_nearPickableObjects.Count == 1)
         {
             _closectPickableObject = _nearPickableObjects[0];
@@ -44,6 +51,8 @@ public class ObjectPicker : MonoBehaviour
             var pickableObject = _nearPickableObjects[i];
             if (pickableObject == null) continue;
 
+            pickableObject.HideOutline();
+
             float dist = Vector3.Distance(transform.position, pickableObject.transform.position);
             if (dist < minDistance)
             {
@@ -51,6 +60,9 @@ public class ObjectPicker : MonoBehaviour
                 minDistance = dist;
             }
         }
+
+        if (_closectPickableObject != null)
+            _closectPickableObject.ShowOutline();
     }
 
     public void AddObject(PickableObject pickableObject)
@@ -64,11 +76,12 @@ public class ObjectPicker : MonoBehaviour
     {
         if (!_nearPickableObjects.Contains(pickableObject)) return;
 
+        pickableObject.HideOutline();
         _nearPickableObjects.Remove(pickableObject);
     }
 
     private void OnDestroy()
     {
-        InputService.OnHandPickDropButtonDown -= PickUpClosestObject;
+        // InputService.OnHandPickDropButtonDown -= PickUpClosestObject;
     }
 }

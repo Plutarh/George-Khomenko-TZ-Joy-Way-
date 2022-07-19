@@ -14,7 +14,7 @@ public class Player : Pawn
 
     Camera _mainCamera;
 
-    [SerializeField] private List<PlayerWeapons> _playerWeapons = new List<PlayerWeapons>();
+    [SerializeField] private List<PlayerHand> _playerWeapons = new List<PlayerHand>();
 
     private PlayerMover _playerMover;
     private ObjectPicker _objectPicker;
@@ -28,11 +28,10 @@ public class Player : Pawn
         _objectPicker = GetComponent<ObjectPicker>();
 
         InputService.OnAttackButtonDown += TryToAttack;
-        InputService.OnHandPickDropButtonDown += DropWeaponFromHand;
-
+        InputService.OnHandPickDropButtonDown += PickDropWithHand;
         _objectPicker.OnPickedUpObject += TryEquipWeapon;
 
-        ResetHandsIK();
+        _playerWeapons.ForEach(pw => ResetHandIK(pw.handIK));
     }
 
     public override void Update()
@@ -42,13 +41,7 @@ public class Player : Pawn
 
     void TryToAttack(EHandType handType)
     {
-        var foundedHand = _playerWeapons.FirstOrDefault(pw => pw.handType == handType);
-
-        if (foundedHand == null)
-        {
-            Debug.LogError($"Cannot find hand : {handType}");
-            return;
-        }
+        var foundedHand = GetHandByType(handType);
 
         var weaponInHand = foundedHand.weapon;
 
@@ -62,15 +55,38 @@ public class Player : Pawn
         weaponInHand.Shoot(GetAimPoint());
     }
 
-    void DropWeaponFromHand(EHandType handType)
+    PlayerHand GetHandByType(EHandType handType)
     {
         var foundedHand = _playerWeapons.FirstOrDefault(pw => pw.handType == handType);
 
         if (foundedHand == null)
         {
             Debug.LogError($"Cannot find hand : {handType}");
-            return;
+            return null;
         }
+
+        return foundedHand;
+    }
+
+    void PickDropWithHand(EHandType handType)
+    {
+        var foundedHand = GetHandByType(handType);
+
+        var weaponInHand = foundedHand.weapon;
+
+        if (weaponInHand == null)
+        {
+            _objectPicker.PickUpClosestObject(handType);
+        }
+        else
+        {
+            DropWeaponFromHand(handType);
+        }
+    }
+
+    void DropWeaponFromHand(EHandType handType)
+    {
+        var foundedHand = GetHandByType(handType);
 
         var weaponInHand = foundedHand.weapon;
 
@@ -82,7 +98,11 @@ public class Player : Pawn
 
         weaponInHand.transform.SetParent(null);
         weaponInHand.Drop();
-        weaponInHand = null;
+
+        if (weaponInHand.IsIK)
+            ResetHandIK(foundedHand.handIK);
+
+        foundedHand.weapon = null;
     }
 
     void TryEquipWeapon(IPickable pickable, EHandType handType)
@@ -93,11 +113,18 @@ public class Player : Pawn
 
     void EquipWeapon(Weapon weapon, EHandType handType)
     {
-        var foundedHand = _playerWeapons.FirstOrDefault(pw => pw.handType == handType);
+        var foundedHand = GetHandByType(handType);
 
-        if (foundedHand == null) return;
+        // В ТЗ нет подрбонго описания, что делать если пытаемся подобрать в руку предмет, если в ней уже находится что-то
+        if (foundedHand.weapon != null)
+        {
+            //Ничего не делаем
+            return;
 
-        if (foundedHand.weapon != null) foundedHand.weapon.Drop();
+            // Дропаем старое оружие
+            // foundedHand.weapon.Drop();
+        }
+
 
         foundedHand.weapon = weapon;
 
@@ -113,7 +140,6 @@ public class Player : Pawn
 
         weapon.transform.localPosition = Vector3.zero;
         weapon.transform.localRotation = Quaternion.identity;
-        Debug.LogError("Setup new pos");
     }
 
     void SmoothEnableHandIK(TwoBoneIKConstraint iKConstraint)
@@ -121,12 +147,11 @@ public class Player : Pawn
         iKConstraint.weight = 1;
     }
 
-    void ResetHandsIK()
+    void ResetHandIK(TwoBoneIKConstraint iKConstraint)
     {
-        foreach (var playerWeapon in _playerWeapons)
-        {
-            playerWeapon.handIK.weight = 0;
-        }
+
+        iKConstraint.weight = 0;
+
     }
 
     public Vector3 GetAimDirection()
@@ -154,14 +179,14 @@ public class Player : Pawn
     private void OnDestroy()
     {
         InputService.OnAttackButtonDown -= TryToAttack;
-        InputService.OnHandPickDropButtonDown -= DropWeaponFromHand;
+        InputService.OnHandPickDropButtonDown -= PickDropWithHand;
         _objectPicker.OnPickedUpObject -= TryEquipWeapon;
 
     }
 }
 
 [System.Serializable]
-public class PlayerWeapons
+public class PlayerHand
 {
     public Weapon weapon;
     public EHandType handType;

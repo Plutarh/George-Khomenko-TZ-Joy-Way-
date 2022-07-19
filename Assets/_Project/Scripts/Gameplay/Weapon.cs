@@ -55,6 +55,8 @@ public class Weapon : MonoBehaviour, IPickable
         gameObject.AddComponent<PickableObject>();
     }
 
+
+
     public void Shoot(Vector3 direction)
     {
         var createdProjectile = Instantiate(_projectilePrefab, _muzzle.transform.position, Quaternion.LookRotation(_muzzle.transform.forward));

@@ -18,13 +18,14 @@ public class PickableObject : MonoBehaviour
     {
         pickable = transform.root.GetComponent<IPickable>();
 
-        _outlineable = transform.root.gameObject.AddComponent<Outlinable>();
+        _outlineable = transform.root.gameObject.GetComponent<Outlinable>();
 
         if (_floatingObject == null)
             _floatingObject = gameObject.AddComponent<FloatingObject>();
 
         SetupRigidbody();
         SetupTriggerCollider();
+        HideOutline();
     }
 
     void SetupRigidbody()
@@ -44,8 +45,21 @@ public class PickableObject : MonoBehaviour
         _sphereCollider.isTrigger = true;
     }
 
+    public void ShowOutline()
+    {
+        _outlineable.enabled = true;
+    }
+
+    public void HideOutline()
+    {
+        _outlineable.enabled = false;
+    }
+
+
     void RemoveComponents()
     {
+        HideOutline();
+        // Destroy(_outlineable);
         Destroy(_sphereCollider);
         Destroy(_body);
         _floatingObject.StopFloating();

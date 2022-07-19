@@ -1856,12 +1856,12 @@ MonoBehaviour:
   - weapon: {fileID: 0}
     handType: 0
     weaponIKParent: {fileID: 4131259860255332561}
-    weaponParent: {fileID: 8025685170492501927}
+    weaponParent: {fileID: 8334005465249402790}
     handIK: {fileID: 8190417635982248020}
   - weapon: {fileID: 0}
     handType: 1
     weaponIKParent: {fileID: 4745220065528405479}
-    weaponParent: {fileID: 0}
+    weaponParent: {fileID: 8334466816763182076}
     handIK: {fileID: 3622158632585429996}
 --- !u!143 &793457002878762726
 CharacterController:

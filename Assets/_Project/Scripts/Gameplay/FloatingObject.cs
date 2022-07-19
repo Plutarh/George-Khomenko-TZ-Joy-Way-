@@ -35,10 +35,8 @@ public class FloatingObject : MonoBehaviour
     {
         if (floatingTween == null) return;
 
-        Debug.LogError("Dstroy floating");
         floatingTween.Kill();
         floatingTween = null;
-
     }
 
 }
