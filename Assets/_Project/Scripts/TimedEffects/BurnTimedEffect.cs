@@ -48,7 +48,6 @@ public class BurnTimedEffect : TimedEffect
     public override void Tick(float delta)
     {
         base.Tick(delta);
-        Debug.Log("Burn Tick");
         if (IsFinished) return;
 
         _timeToHit -= delta;
@@ -57,7 +56,6 @@ public class BurnTimedEffect : TimedEffect
             DamageData damageData = new DamageData();
 
             damageData.damage = _burnScriptableEffect.damage;
-            damageData.owner = base.damageData.owner;
 
             _target.TakeDamage(damageData);
 
@@ -115,8 +113,6 @@ public class BurnTimedEffect : TimedEffect
         }
 
         _burningFX.transform.localPosition = Vector3.zero;
-
-        Debug.Log("Create burn fx");
     }
 
 

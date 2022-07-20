@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
     [SerializeField] protected GameObject _hitFX;
-    [SerializeField] private List<EffectsInteractions> _effectsInteractions = new List<EffectsInteractions>();
-    [SerializeField] private List<Effect> _effects = new List<Effect>();
+    [SerializeField] private List<EffectsInteractions> _timedEffectsInteraction = new List<EffectsInteractions>();
+    [SerializeField] protected List<Effect> _effects = new List<Effect>();
 
     protected DamageData _damageData;
     protected GameObject _owner;
@@ -34,22 +35,20 @@ public class Projectile : MonoBehaviour
 
     public void AddEffectInteraction(EffectsInteractions effectsInteractions)
     {
-        _effectsInteractions.Add(effectsInteractions);
+        _timedEffectsInteraction.Add(effectsInteractions);
     }
 
     public void AddEffect(Effect newEffect)
     {
+        if (_effects.Any(ef => ef.effect == newEffect.effect))
+            _effects.Remove(_effects.FirstOrDefault(ef => ef.effect == newEffect.effect));
+
         _effects.Add(newEffect);
     }
 
-    // public void AddScriptableTimedEffect(ScriptableTimedEffect newEffect)
-    // {
-    //     _timedEffectOnHit.Add(newEffect);
-    // }
-
-    public virtual void Hit(IDamageable damageable)
+    void ResolveTimeEffectsInteractions(IDamageable damageable)
     {
-        foreach (var ef in _effectsInteractions)
+        foreach (var ef in _timedEffectsInteraction)
         {
 
             var timedEffect = damageable.GetTimedEffect(ef.timedEffect);
@@ -74,14 +73,54 @@ public class Projectile : MonoBehaviour
                     break;
             }
         }
+    }
 
-
+    void ResolveEffectsInteractions(IDamageable damageable)
+    {
         foreach (var effect in _effects)
         {
-            effect.AddTarget(damageable);
-            damageable.AddEffect(effect);
+            if (effect.effect.interactions.Count == 0)
+            {
+                effect.AddTarget(damageable);
+                damageable.AddEffect(effect);
+            }
+            else
+            {
+                foreach (var interaction in effect.effect.interactions)
+                {
+                    var effectOnDamagable = damageable.GetEffect(interaction.effect);
+                    if (effectOnDamagable == null) continue;
+
+                    switch (interaction.interactionType)
+                    {
+                        case BaseEffectsInteractions.EInteractionType.None:
+                            break;
+                        case BaseEffectsInteractions.EInteractionType.DecreaseByOwnValue:
+
+                            effectOnDamagable.Decrease(effect.currentValue);
+                            effect.Decrease(effectOnDamagable.currentValue);
+
+                            break;
+                        case BaseEffectsInteractions.EInteractionType.IncreaseByOwnValue:
+                            effectOnDamagable.Increase(effect.currentValue);
+                            break;
+                    }
+                }
+
+                if (effect.currentValue > 0)
+                {
+                    effect.AddTarget(damageable);
+                    damageable.AddEffect(effect);
+                }
+
+            }
         }
-        // _effects.ForEach(effect => AddTarget.AddEffect(effect));
+    }
+
+    public virtual void Hit(IDamageable damageable)
+    {
+        ResolveTimeEffectsInteractions(damageable);
+        ResolveEffectsInteractions(damageable);
         damageable.TakeDamage(_damageData);
     }
 }

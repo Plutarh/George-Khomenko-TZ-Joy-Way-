@@ -14,20 +14,11 @@ public class Wetness : Effect
         target.AddTimedEffect(_wetnessScriptableEffect.scriptableTimedEffect.InitializeEffect(target.GetGameObject()));
     }
 
-    public override void CheckEffects()
-    {
-        base.CheckEffects();
-
-        if (target.GetEffects().Contains(_wetnessScriptableEffect.conterEffect))
-        {
-            target.RemoveEffect(_wetnessScriptableEffect.conterEffect);
-        }
-    }
-
     public override void Deactivate()
     {
         base.Deactivate();
-        target.RemoveTimedEffect(target.GetTimedEffect(_wetnessScriptableEffect.scriptableTimedEffect));
+        if (target != null)
+            target.RemoveTimedEffect(target.GetTimedEffect(_wetnessScriptableEffect.scriptableTimedEffect));
     }
 
     public override void ApplyEffect()

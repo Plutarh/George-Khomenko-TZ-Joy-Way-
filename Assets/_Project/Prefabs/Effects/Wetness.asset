@@ -13,3 +13,8 @@ MonoBehaviour:
   m_Name: Wetness
   m_EditorClassIdentifier: 
   effectName: Wetness
+  maxValue: 100
+  scriptableTimedEffect: {fileID: 11400000, guid: a5d9ad09f80065c49b8a9864edb4d126, type: 2}
+  interactions:
+  - effect: {fileID: 11400000, guid: deb9f2593583b4e4e93d52669c28770f, type: 2}
+    interactionType: 1

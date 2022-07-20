@@ -19,8 +19,10 @@ public class UIHealthBar : MonoBehaviour
 
     protected Pawn _pawn;
 
-    public void SetPawn(Pawn pawn)
+    public virtual void SetPawn(Pawn pawn)
     {
+        ResetBar();
+
         _pawn = pawn;
         _pawn.OnTakedDamage += UpdateBar;
 
@@ -28,7 +30,7 @@ public class UIHealthBar : MonoBehaviour
         UpdateHealthGradient(_healthImage.fillAmount);
     }
 
-    public void ResetBar()
+    public virtual void ResetBar()
     {
         _damageImage.fillAmount = 1;
         _healthImage.fillAmount = 1;
@@ -52,7 +54,7 @@ public class UIHealthBar : MonoBehaviour
         _healthImage.color = _healthColorGradient.Evaluate(fillAmount);
     }
 
-    private void OnDestroy()
+    public virtual void OnDestroy()
     {
         if (_pawn != null)
             _pawn.OnTakedDamage -= UpdateBar;

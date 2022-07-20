@@ -5,7 +5,7 @@ using UnityEngine;
 public class WaterStone : Weapon
 {
     [SerializeField] private float _throwForce = 5;
-    [SerializeField] private float _wetness;
+    [SerializeField] private int _wetness;
 
 
     public override void Shoot(Vector3 point)
@@ -24,6 +24,13 @@ public class WaterStone : Weapon
 
         _effectsInteractions.ForEach(ef => createdProjectile.AddEffectInteraction(ef));
 
+
+        foreach (var effect in _effects)
+        {
+            var newEffect = effect.InitializeEffect();
+            newEffect.currentValue = _wetness;
+            createdProjectile.AddEffect(newEffect);
+        }
 
         Vector3 projectileDirection = point - _muzzle.transform.position;
         createdProjectile.SetDirection(projectileDirection.normalized * _throwForce);

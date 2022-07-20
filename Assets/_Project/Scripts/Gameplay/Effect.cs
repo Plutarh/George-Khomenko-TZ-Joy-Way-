@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class Effect
@@ -7,7 +8,7 @@ public abstract class Effect
     public IDamageable target;
     public ScriptableEffect effect { get; }
 
-
+    public Action<Effect> OnValueChanged;
 
     public Effect(ScriptableEffect ef)
     {
@@ -27,14 +28,36 @@ public abstract class Effect
         {
             currentValue = maxValue;
             Activate();
-            Debug.Log($"Effect {effect.effectName} increased by {value} ");
         }
-        CheckEffects();
+
+        OnValueChanged?.Invoke(this);
     }
 
-    public virtual void CheckEffects()
+    public virtual void Decrease(int value)
     {
+        currentValue -= value;
 
+        if (currentValue <= 0)
+        {
+            currentValue = 0;
+            if (target != null)
+                target.RemoveEffect(this);
+        }
+
+
+        if (currentValue < maxValue)
+            Deactivate();
+
+        OnValueChanged?.Invoke(this);
+    }
+
+    public virtual void Initialize()
+    {
+        if (currentValue >= maxValue)
+        {
+            currentValue = maxValue;
+            Activate();
+        }
     }
 
     public virtual void Activate()
@@ -52,14 +75,13 @@ public abstract class Effect
 
     }
 
-    public virtual void Decrease(int value)
+    public float GetValue01()
     {
-        currentValue -= value;
+        if (maxValue == 0 || currentValue == 0)
+            return 0;
 
-        if (currentValue <= 0)
-        {
-            currentValue = 0;
-            Deactivate();
-        }
+        float value01 = Mathf.Clamp((float)currentValue / (float)maxValue, 0f, 1f);
+        return value01;
     }
+
 }

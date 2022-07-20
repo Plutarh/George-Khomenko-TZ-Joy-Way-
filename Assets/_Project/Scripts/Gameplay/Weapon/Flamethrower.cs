@@ -5,6 +5,7 @@ using UnityEngine;
 public class Flamethrower : Weapon
 {
     private ParticleProjectile _flameThrower;
+    [SerializeField] private int _flameDamage = 1;
 
     public override void Awake()
     {
@@ -35,7 +36,7 @@ public class Flamethrower : Weapon
         foreach (var effect in _effects)
         {
             var newEffect = effect.InitializeEffect();
-            newEffect.currentValue = (int)_damage;
+            newEffect.currentValue = _flameDamage;
             _flameThrower.AddEffect(newEffect);
         }
 

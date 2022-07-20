@@ -13,6 +13,7 @@ public interface IDamageable
     List<ScriptableEffect> GetEffects();
     void AddEffect(Effect effect);
     void RemoveEffect(ScriptableEffect effect);
+    void RemoveEffect(Effect effect);
     Effect GetEffect(ScriptableEffect effect);
 
     GameObject GetGameObject();

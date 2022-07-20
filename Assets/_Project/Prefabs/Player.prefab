@@ -1848,10 +1848,11 @@ MonoBehaviour:
   _health: 0
   _headBone: {fileID: 8334454305809073484}
   _skin: {fileID: 8236856453138479820}
+  debugEffects: []
   _cameraRoot: {fileID: 1807120130997065105}
   aimLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 129
   _playerWeapons:
   - weapon: {fileID: 0}
     handType: 0
@@ -1863,6 +1864,7 @@ MonoBehaviour:
     weaponIKParent: {fileID: 4745220065528405479}
     weaponParent: {fileID: 8334466816763182076}
     handIK: {fileID: 3622158632585429996}
+  _delayedWeaponToShoot: []
 --- !u!143 &793457002878762726
 CharacterController:
   m_ObjectHideFlags: 0

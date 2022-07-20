@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c47599a112cdcba4386b114f62ecc0bb, type: 3}
   m_Name: TimedBurnEffect
   m_EditorClassIdentifier: 
-  duration: 0
+  duration: 10
   unlimitedDuration: 0
   isDurationRefreshed: 1
   isStackable: 0
-  timerToHit: 0
-  damage: 0
-  burnFX: {fileID: 0}
+  timerToHit: 1
+  damage: 5
+  burnFX: {fileID: 5147264526970508098, guid: ed445d9b1a94a124d9060936c0e42ca5, type: 3}

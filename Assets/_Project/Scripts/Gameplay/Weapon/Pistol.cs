@@ -26,13 +26,6 @@ public class Pistol : Weapon
 
         _effectsInteractions.ForEach(ef => createdProjectile.AddEffectInteraction(ef));
 
-        foreach (var effect in _effects)
-        {
-            var newEffect = effect.InitializeEffect();
-            newEffect.currentValue = 5;
-            createdProjectile.AddEffect(newEffect);
-        }
-
         Vector3 projectileDirection = point - _muzzle.transform.position;
         createdProjectile.SetDirection(projectileDirection.normalized * _projectileMoveSpeed);
     }

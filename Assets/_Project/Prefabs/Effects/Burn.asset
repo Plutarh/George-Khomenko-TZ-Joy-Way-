@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2fb7be1f8f0da74499d6e49246e95ed, type: 3}
   m_Name: Burn
   m_EditorClassIdentifier: 
-  effectName: 
+  effectName: Burn
+  maxValue: 1
+  scriptableTimedEffect: {fileID: 11400000, guid: 322ba952bbfb9b141a53e700b2b70d40, type: 2}
+  interactions:
+  - effect: {fileID: 11400000, guid: 07f37bdbecf25fe41a7e7370eae55de7, type: 2}
+    interactionType: 1

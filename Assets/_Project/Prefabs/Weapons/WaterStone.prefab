@@ -114,6 +114,7 @@ MonoBehaviour:
   _effects:
   - {fileID: 11400000, guid: 07f37bdbecf25fe41a7e7370eae55de7, type: 2}
   _throwForce: 25
+  _wetness: 10
 --- !u!1 &7093043300231647058
 GameObject:
   m_ObjectHideFlags: 0

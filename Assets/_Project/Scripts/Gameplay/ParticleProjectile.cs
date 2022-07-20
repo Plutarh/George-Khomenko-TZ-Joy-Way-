@@ -35,25 +35,15 @@ public class ParticleProjectile : Projectile
     {
         if (other.transform.root == _owner.transform.root) return;
 
-        int numCollisionEvents = _damageParticle.GetCollisionEvents(other, _collisionEvents);
-
         var damagable = other.transform.root.GetComponent<IDamageable>();
 
         if (damagable == null) return;
-        int i = 0;
+
         Hit(damagable);
-        // while (i < numCollisionEvents)
-        // {
-
-
-        //     i++;
-        // }
     }
 
     public override void Hit(IDamageable damageable)
     {
         base.Hit(damageable);
-
-
     }
 }

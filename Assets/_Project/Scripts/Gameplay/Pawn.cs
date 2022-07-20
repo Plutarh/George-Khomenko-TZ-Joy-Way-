@@ -19,6 +19,7 @@ public class Pawn : MonoBehaviour, IDamageable
 
     public Action OnDeath;
     public Action<DamageData> OnTakedDamage;
+    public Action<Effect> OnEffectValueChanged;
 
     private Dictionary<ScriptableTimedEffect, TimedEffect> _timedEffects = new Dictionary<ScriptableTimedEffect, TimedEffect>();
     private Dictionary<ScriptableEffect, Effect> _effects = new Dictionary<ScriptableEffect, Effect>();
@@ -51,27 +52,13 @@ public class Pawn : MonoBehaviour, IDamageable
 
                 debugEffects.Add(ef);
             }
-            yield return new WaitForSecondsRealtime(0.5f);
+            yield return new WaitForSecondsRealtime(0.2f);
         }
     }
 
     public virtual void Update()
     {
         EffectsTimeTick();
-
-        // timedEffectsName.Clear();
-
-        // foreach (var te in _timedEffects)
-        // {
-        //     timedEffectsName.Add(te.Key.name);
-        // }
-
-        // effectsName.Clear();
-
-        // foreach (var e in _effects)
-        // {
-        //     effectsName.Add(e.GetType().Name);
-        // }
     }
 
     public virtual void TakeDamage(DamageData damageData)
@@ -110,7 +97,7 @@ public class Pawn : MonoBehaviour, IDamageable
 
     public void AddTimedEffect(TimedEffect effect)
     {
-        Debug.Log("add new timed effect " + effect.Effect.name);
+        // Debug.Log("add new timed effect " + effect.Effect.name);
         if (_timedEffects.ContainsKey(effect.Effect))
         {
             _timedEffects[effect.Effect].Activate();
@@ -124,6 +111,7 @@ public class Pawn : MonoBehaviour, IDamageable
 
     public void RemoveTimedEffect(TimedEffect timedEffect)
     {
+        if (timedEffect == null) return;
         if (_timedEffects.ContainsKey(timedEffect.Effect) == false)
             return;
 
@@ -177,7 +165,8 @@ public class Pawn : MonoBehaviour, IDamageable
 
     public void AddEffect(Effect newEffect)
     {
-        Debug.Log($"Add new effect {newEffect.effect.effectName}");
+        if (newEffect == null) return;
+
         if (_effects.ContainsKey(newEffect.effect))
         {
             // сами в себя кастанем значение
@@ -186,7 +175,16 @@ public class Pawn : MonoBehaviour, IDamageable
         else
         {
             _effects.Add(newEffect.effect, newEffect);
+            newEffect.OnValueChanged += OnEffectValueChanged;
+            newEffect.Initialize();
         }
+
+
+        foreach (var effect in _effects)
+        {
+            OnEffectValueChanged?.Invoke(effect.Value);
+        }
+
     }
 
     public void RemoveEffect(ScriptableEffect effect)
@@ -196,6 +194,13 @@ public class Pawn : MonoBehaviour, IDamageable
         _effects[effect].Deactivate();
     }
 
+    public void RemoveEffect(Effect effect)
+    {
+        if (!_effects.ContainsValue(effect)) return;
+
+        effect.OnValueChanged -= OnEffectValueChanged;
+        _effects.Remove(effect.effect);
+    }
 
 
     public GameObject GetGameObject()

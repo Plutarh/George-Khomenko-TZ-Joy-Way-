@@ -438,8 +438,7 @@ MonoBehaviour:
   - timedEffect: {fileID: 11400000, guid: 322ba952bbfb9b141a53e700b2b70d40, type: 2}
     damage: 10
     eEfectInrecation: 2
-  _effects:
-  - {fileID: 11400000, guid: deb9f2593583b4e4e93d52669c28770f, type: 2}
+  _effects: []
   _projectileMoveSpeed: 30
   _shotPerSecond: 0.3
 --- !u!1 &5659914409675956662

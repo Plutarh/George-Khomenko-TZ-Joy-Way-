@@ -7,14 +7,7 @@ public abstract class ScriptableEffect : ScriptableObject
     public string effectName;
     public int maxValue;
     public ScriptableTimedEffect scriptableTimedEffect;
-    public ScriptableEffect conterEffect;
+
+    public List<BaseEffectsInteractions> interactions = new List<BaseEffectsInteractions>();
     public abstract Effect InitializeEffect();
-}
-
-public class BaseEffectsInteractions
-{
-    public ScriptableEffect effect;
-
-
-
 }
