@@ -53,29 +53,24 @@ public class PlayerMover : MonoBehaviour
     private bool _blockMovement;
     private float _gravity = -9.81f;
     private float _jumpTimeoutDelta;
-    private InputService _inputService;
-
 
     private CharacterController _characterController;
 
 
-    public void Awake()
+    void Awake()
     {
         _animator = GetComponent<Animator>();
         _characterController = GetComponent<CharacterController>();
 
         _animator.SetLayerWeight(1, 1);
         _mainCamera = Camera.main;
+
+        InputService.OnJumpButtonDown += TryToJump;
     }
 
-    public void Start()
+    void Update()
     {
-        _inputService = InputService.get;
-    }
-
-    public void Update()
-    {
-        if (_inputService == null)
+        if (InputService.get == null)
         {
             Debug.LogError("Input service nulled");
             return;
@@ -88,8 +83,6 @@ public class PlayerMover : MonoBehaviour
         UpdateMotionAnimator();
         BattleStateTimer();
 
-        if (Input.GetKeyDown(KeyCode.Space))
-            TryToJump();
     }
 
     void BattleStateTimer()
@@ -104,18 +97,18 @@ public class PlayerMover : MonoBehaviour
         }
     }
 
-    public void Rotation()
+    void Rotation()
     {
-        if (_inputService == null)
+        if (InputService.get == null)
         {
             Debug.LogError("Input service NULL");
             return;
         }
 
-        Vector3 inputDirection = new Vector3(_inputService.MoveInput.x, 0.0f, _inputService.MoveInput.y).normalized;
+        Vector3 inputDirection = new Vector3(InputService.get.MoveInput.x, 0.0f, InputService.get.MoveInput.y).normalized;
 
         // Поворачиваем игрока по камере
-        if (_inputService.MoveInput != Vector2.zero || battleState)
+        if (InputService.get.MoveInput != Vector2.zero || battleState)
         {
             // Если игрок в батл стейте то поворот по Z будет игнорироваться
             _targetRotation = Mathf.Atan2(battleState ? 0 : inputDirection.x, battleState ? 0 : inputDirection.z) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
@@ -129,19 +122,19 @@ public class PlayerMover : MonoBehaviour
         _targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
     }
 
-    public void Movement()
+    void Movement()
     {
-        if (_inputService == null)
+        if (InputService.get == null)
         {
             Debug.LogError("Input service NULL");
             return;
         }
 
-        _moveDirection.x = _inputService.MoveInput.x;
-        _moveDirection.z = _inputService.MoveInput.y;
+        _moveDirection.x = InputService.get.MoveInput.x;
+        _moveDirection.z = InputService.get.MoveInput.y;
 
         // Сначала проверяем бежит ли игрок вперед или назад
-        bool backwardMove = _inputService.MoveInput.y > 0 ? false : true;
+        bool backwardMove = InputService.get.MoveInput.y > 0 ? false : true;
 
         float targetMoveSpeed = 0;
 
@@ -153,7 +146,7 @@ public class PlayerMover : MonoBehaviour
 
 
 
-        if (_inputService.MoveInput == Vector2.zero || _blockMovement) targetMoveSpeed = 0;
+        if (InputService.get.MoveInput == Vector2.zero || _blockMovement) targetMoveSpeed = 0;
 
         if (_blockMovement) return;
 
@@ -163,7 +156,7 @@ public class PlayerMover : MonoBehaviour
         float speedOffset = 0.1f;
 
         // Для стиков на геймпаде
-        float inputMagnitude = _inputService.MoveInput.magnitude;
+        float inputMagnitude = InputService.get.MoveInput.magnitude;
 
         if (currentHorizontalSpeed < targetMoveSpeed - speedOffset || currentHorizontalSpeed > targetMoveSpeed + speedOffset)
         {
@@ -178,7 +171,7 @@ public class PlayerMover : MonoBehaviour
         }
 
         // Игрок будет двигаться по форварду камеры
-        Vector3 targetDir = new Vector3(_inputService.MoveInput.x, 0, _inputService.MoveInput.y);
+        Vector3 targetDir = new Vector3(InputService.get.MoveInput.x, 0, InputService.get.MoveInput.y);
         targetDir = _mainCamera.transform.TransformDirection(targetDir);
         targetDir = Vector3.ProjectOnPlane(targetDir, Vector3.up);
 
@@ -192,22 +185,22 @@ public class PlayerMover : MonoBehaviour
         // Обновляем переменную для бленд движения аниматора 
         if (targetMoveSpeed > 0)
         {
-            if (_inputService.MoveInput.magnitude != 0)
+            if (InputService.get.MoveInput.magnitude != 0)
             {
                 // в бэтл стейте есть отыгрываем анимации во всех направлениях
                 if (battleState)
                 {
                     int verticalDir = 0;
-                    if (_inputService.MoveInput.y != 0)
-                        verticalDir = _inputService.MoveInput.y > 0 ? 1 : -1;
+                    if (InputService.get.MoveInput.y != 0)
+                        verticalDir = InputService.get.MoveInput.y > 0 ? 1 : -1;
 
                     _verticalAnimationMotion = Mathf.Lerp(_verticalAnimationMotion
                             , 1 * verticalDir
                             , Time.deltaTime * _speedChangeRate);
 
                     int horizontalDir = 0;
-                    if (_inputService.MoveInput.x != 0)
-                        horizontalDir = _inputService.MoveInput.x > 0 ? 1 : -1;
+                    if (InputService.get.MoveInput.x != 0)
+                        horizontalDir = InputService.get.MoveInput.x > 0 ? 1 : -1;
 
                     _horizontalAnimationMotion = Mathf.Lerp(_horizontalAnimationMotion
                             , 1 * horizontalDir
@@ -238,20 +231,20 @@ public class PlayerMover : MonoBehaviour
         _horizontalAnimationMotion = Mathf.Clamp(_horizontalAnimationMotion, -1, 1);
     }
 
-    public void TryToJump()
+    void TryToJump()
     {
         if (_jumpTimeoutDelta > 0 || !_isGrounded) return;
 
         Jump();
     }
 
-    public void Jump()
+    void Jump()
     {
         _animator.SetBool("Jump", true);
         _verticalVelocity = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
     }
 
-    public void Gravity()
+    void Gravity()
     {
         if (_isGrounded)
         {
@@ -276,17 +269,12 @@ public class PlayerMover : MonoBehaviour
                 _fallTimeoutDelta -= Time.deltaTime;
             else
                 _animator.SetBool("FreeFall", true);
-
-            // if (_inputService != null)
-            //     _inputService.ResetJump();
-            // else
-            //     Debug.LogError("Player Input service NULL");
         }
 
         _verticalVelocity += _gravity * Time.deltaTime;
     }
 
-    public void GroundCheck()
+    void GroundCheck()
     {
         Vector3 spherePosition = Vector3.zero;
 
@@ -305,14 +293,19 @@ public class PlayerMover : MonoBehaviour
     }
 
 
-    public void OnLanded()
+    void OnLanded()
     {
-
+        //TODO например всякие партиклы
     }
 
-    public void UpdateMotionAnimator()
+    void UpdateMotionAnimator()
     {
         _animator.SetFloat("Motion_Y", _verticalAnimationMotion);
         _animator.SetFloat("Motion_X", _horizontalAnimationMotion);
+    }
+
+    private void OnDestroy()
+    {
+        InputService.OnJumpButtonDown -= TryToJump;
     }
 }

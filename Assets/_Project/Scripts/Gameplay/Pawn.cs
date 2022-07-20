@@ -24,8 +24,6 @@ public class Pawn : MonoBehaviour, IDamageable
     private Dictionary<ScriptableTimedEffect, TimedEffect> _timedEffects = new Dictionary<ScriptableTimedEffect, TimedEffect>();
     private Dictionary<ScriptableEffect, Effect> _effects = new Dictionary<ScriptableEffect, Effect>();
 
-    public List<DebugEffectChecker> debugEffects = new List<DebugEffectChecker>();
-
 
     public virtual void Awake()
     {
@@ -34,26 +32,7 @@ public class Pawn : MonoBehaviour, IDamageable
 
     public virtual void Start()
     {
-        StartCoroutine(IeCheck());
-    }
 
-    IEnumerator IeCheck()
-    {
-        while (true)
-        {
-            debugEffects.Clear();
-            foreach (var item in _effects)
-            {
-                DebugEffectChecker ef = new DebugEffectChecker();
-
-                ef.effectName = item.Key.effectName;
-                ef.currentValue = item.Value.currentValue;
-                ef.maxValue = item.Value.maxValue;
-
-                debugEffects.Add(ef);
-            }
-            yield return new WaitForSecondsRealtime(0.2f);
-        }
     }
 
     public virtual void Update()
@@ -97,7 +76,6 @@ public class Pawn : MonoBehaviour, IDamageable
 
     public void AddTimedEffect(TimedEffect effect)
     {
-        // Debug.Log("add new timed effect " + effect.Effect.name);
         if (_timedEffects.ContainsKey(effect.Effect))
         {
             _timedEffects[effect.Effect].Activate();
@@ -216,12 +194,4 @@ public class Pawn : MonoBehaviour, IDamageable
         return _effects.FirstOrDefault(te => te.Key == effect).Value;
     }
 
-}
-
-[System.Serializable]
-public class DebugEffectChecker
-{
-    public string effectName;
-    public int currentValue;
-    public int maxValue;
 }

@@ -8,15 +8,12 @@ public class Burn : Effect
         maxValue = _burnScriptableEffect.maxValue;
     }
 
-
-
     public override void Activate()
     {
         base.Activate();
 
         target.AddTimedEffect(_burnScriptableEffect.scriptableTimedEffect.InitializeEffect(target.GetGameObject()));
     }
-
 
     public override void Deactivate()
     {
@@ -25,5 +22,4 @@ public class Burn : Effect
         if (target != null)
             target.RemoveTimedEffect(target.GetTimedEffect(_burnScriptableEffect.scriptableTimedEffect));
     }
-
 }

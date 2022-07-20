@@ -112,7 +112,6 @@ public class Projectile : MonoBehaviour
                     effect.AddTarget(damageable);
                     damageable.AddEffect(effect);
                 }
-
             }
         }
     }

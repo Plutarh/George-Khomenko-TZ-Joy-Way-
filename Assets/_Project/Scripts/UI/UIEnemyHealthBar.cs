@@ -34,8 +34,6 @@ public class UIEnemyHealthBar : UIHealthBar
     {
         base.UpdateBar(damageData);
         ShowDamageText(damageData);
-
-
     }
 
     public override void ResetBar()

@@ -20,6 +20,7 @@ public class InputService : MonoBehaviour
     public static Action<EHandType> OnHandPickDropButtonDown;
     public static Action<EHandType> OnAttackButtonPressed;
     public static Action<EHandType> OnAttackButtonUp;
+    public static Action OnJumpButtonDown;
 
     private void Awake()
     {
@@ -64,6 +65,9 @@ public class InputService : MonoBehaviour
 
         if (Input.GetKeyDown(_restartKey))
             GlobalEvents.OnRestartBtnDown?.Invoke();
+
+        if (Input.GetKeyDown(_jumpKey))
+            OnJumpButtonDown?.Invoke();
     }
 
     void ReadLookInput()
