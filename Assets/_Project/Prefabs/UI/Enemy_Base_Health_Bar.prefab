@@ -303,6 +303,7 @@ GameObject:
   - component: {fileID: 8263733414964198896}
   - component: {fileID: 3242710002907113023}
   - component: {fileID: 3433157196869498558}
+  - component: {fileID: 3862927941741625645}
   m_Layer: 5
   m_Name: Wetness
   m_TagString: Untagged
@@ -367,6 +368,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 7.14
+--- !u!114 &3862927941741625645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5841211466167678833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &6135665287444832676
 GameObject:
   m_ObjectHideFlags: 0

@@ -42,6 +42,7 @@ public class Pawn : MonoBehaviour, IDamageable
 
     public virtual void TakeDamage(DamageData damageData)
     {
+        if (damageData.damage == 0) return;
         if (IsDead) return;
 
         _health -= damageData.damage;
