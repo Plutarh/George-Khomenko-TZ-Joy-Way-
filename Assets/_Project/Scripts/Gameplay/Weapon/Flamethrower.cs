@@ -31,7 +31,14 @@ public class Flamethrower : Weapon
         _flameThrower.SetDirection(projectileDirection.normalized);
 
         _effectsInteractions.ForEach(ef => _flameThrower.AddEffectInteraction(ef));
-        _timedEffectOnHit.ForEach(effect => _flameThrower.AddScriptableTimedEffect(effect));
+
+        foreach (var effect in _effects)
+        {
+            var newEffect = effect.InitializeEffect();
+            newEffect.currentValue = (int)_damage;
+            _flameThrower.AddEffect(newEffect);
+        }
+
 
         _flameThrower.Emit(true);
     }

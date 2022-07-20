@@ -5,8 +5,8 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] protected GameObject _hitFX;
-    [SerializeField] protected List<ScriptableTimedEffect> _timedEffectOnHit = new List<ScriptableTimedEffect>();
     [SerializeField] private List<EffectsInteractions> _effectsInteractions = new List<EffectsInteractions>();
+    [SerializeField] private List<Effect> _effects = new List<Effect>();
 
     protected DamageData _damageData;
     protected GameObject _owner;
@@ -37,10 +37,15 @@ public class Projectile : MonoBehaviour
         _effectsInteractions.Add(effectsInteractions);
     }
 
-    public void AddScriptableTimedEffect(ScriptableTimedEffect newEffect)
+    public void AddEffect(Effect newEffect)
     {
-        _timedEffectOnHit.Add(newEffect);
+        _effects.Add(newEffect);
     }
+
+    // public void AddScriptableTimedEffect(ScriptableTimedEffect newEffect)
+    // {
+    //     _timedEffectOnHit.Add(newEffect);
+    // }
 
     public virtual void Hit(IDamageable damageable)
     {
@@ -70,7 +75,13 @@ public class Projectile : MonoBehaviour
             }
         }
 
-        _timedEffectOnHit.ForEach(effect => damageable.AddTimedEffect(effect.InitializeEffect(damageable.GetGameObject(), _damageData)));
+
+        foreach (var effect in _effects)
+        {
+            effect.AddTarget(damageable);
+            damageable.AddEffect(effect);
+        }
+        // _effects.ForEach(effect => AddTarget.AddEffect(effect));
         damageable.TakeDamage(_damageData);
     }
 }

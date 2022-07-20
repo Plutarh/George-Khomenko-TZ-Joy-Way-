@@ -42,8 +42,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.4787588, y: 3.1702704, z: 0.38212958}
-  m_Center: {x: -0.074305, y: 1.4404109, z: 0.09268053}
+  m_Size: {x: 0.4787588, y: 3.3436744, z: 0.38212958}
+  m_Center: {x: -0.074305, y: 1.5271128, z: 0.09268053}
 --- !u!1 &6101046792523756001
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,8 +129,8 @@ MonoBehaviour:
   _health: 0
   _headBone: {fileID: 5139883273522771665}
   _skin: {fileID: 6122763593578340502}
+  debugEffects: []
   _rotationPivotPoint: {fileID: 6101046793695948213}
-  burn: {fileID: 11400000, guid: 7f9263428f110f54694be8769c197786, type: 2}
 --- !u!114 &6101046792734112427
 MonoBehaviour:
   m_ObjectHideFlags: 0

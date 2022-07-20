@@ -11,7 +11,6 @@ public abstract class TimedEffect
 
     public bool IsFinished;
     public bool IsPaused;
-    public bool IsVisual;
 
     public DamageData damageData;
 
@@ -28,7 +27,6 @@ public abstract class TimedEffect
     {
         Effect = effect;
         targetGO = targetObj;
-        IsVisual = true;
     }
 
     public virtual void Tick(float delta)

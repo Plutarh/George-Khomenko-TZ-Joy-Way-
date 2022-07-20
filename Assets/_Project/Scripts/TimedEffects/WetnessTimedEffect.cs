@@ -18,7 +18,6 @@ public class WetnessTimedEffect : TimedEffect
     public WetnessTimedEffect(ScriptableTimedEffect buff, GameObject targetObj) : base(buff, targetObj)
     {
         _target = targetObj.GetComponent<IDamageable>();
-        _whoUse = damageData.owner;
     }
 
     protected override void ApplyEffect()

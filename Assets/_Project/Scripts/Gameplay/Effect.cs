@@ -1,41 +1,65 @@
 using UnityEngine;
 
-[System.Serializable]
 public abstract class Effect
 {
-    public GameObject targetGO;
+    public int currentValue;
+    public int maxValue;
+    public IDamageable target;
+    public ScriptableEffect effect { get; }
 
-    public Effect(GameObject go)
+
+
+    public Effect(ScriptableEffect ef)
     {
-        targetGO = go;
-    }
-}
-
-
-[System.Serializable]
-public class Wetness : Effect
-{
-    public int wetness = 0;
-    const int maxWetness = 100;
-
-    public Wetness(GameObject targetGo) : base(targetGo)
-    {
-        wetness = 0;
+        effect = ef;
     }
 
-    public void AddWetness(int value)
+    public void AddTarget(IDamageable newTarget)
     {
-        wetness += value;
-
-        if (wetness > maxWetness)
-            wetness = maxWetness;
+        target = newTarget;
     }
 
-    public void DecreaseWetness(int value)
+    public virtual void Increase(int value)
     {
-        wetness -= value;
+        currentValue += value;
 
-        if (wetness < 0)
-            wetness = 0;
+        if (currentValue >= maxValue)
+        {
+            currentValue = maxValue;
+            Activate();
+            Debug.Log($"Effect {effect.effectName} increased by {value} ");
+        }
+        CheckEffects();
+    }
+
+    public virtual void CheckEffects()
+    {
+
+    }
+
+    public virtual void Activate()
+    {
+
+    }
+
+    public virtual void Deactivate()
+    {
+
+    }
+
+    public virtual void ApplyEffect()
+    {
+
+    }
+
+    public virtual void Decrease(int value)
+    {
+        currentValue -= value;
+
+        if (currentValue <= 0)
+        {
+            currentValue = 0;
+            Deactivate();
+        }
     }
 }

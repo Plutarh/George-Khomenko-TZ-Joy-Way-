@@ -3,9 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Effects/WetnessEffect")]
 public class WetnessScriptableEffect : ScriptableEffect
 {
-    public override Effect InitializeEffect(GameObject obj)
+    public override Effect InitializeEffect()
     {
-        return new Wetness(obj);
+        return new Wetness(this);
     }
-
 }
+

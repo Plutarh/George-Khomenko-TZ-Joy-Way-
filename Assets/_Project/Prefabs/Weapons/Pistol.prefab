@@ -427,8 +427,6 @@ MonoBehaviour:
   _muzzle: {fileID: 5523087631221297262}
   _projectilePrefab: {fileID: 9051981277366064967, guid: 65c3ac15bd017534ab83b5ec6a7a8e3f, type: 3}
   _damage: 20
-  _timedEffectOnHit: []
-  _effects: []
   _weaponName: Pistol
   _isIKRequire: 1
   _isAnimationRequire: 0
@@ -437,9 +435,11 @@ MonoBehaviour:
   - timedEffect: {fileID: 11400000, guid: a5d9ad09f80065c49b8a9864edb4d126, type: 2}
     damage: 10
     eEfectInrecation: 1
-  - timedEffect: {fileID: 11400000, guid: 7f9263428f110f54694be8769c197786, type: 2}
+  - timedEffect: {fileID: 11400000, guid: 322ba952bbfb9b141a53e700b2b70d40, type: 2}
     damage: 10
     eEfectInrecation: 2
+  _effects:
+  - {fileID: 11400000, guid: deb9f2593583b4e4e93d52669c28770f, type: 2}
   _projectileMoveSpeed: 30
   _shotPerSecond: 0.3
 --- !u!1 &5659914409675956662

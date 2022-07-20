@@ -21,10 +21,10 @@ public class Pawn : MonoBehaviour, IDamageable
     public Action<DamageData> OnTakedDamage;
 
     private Dictionary<ScriptableTimedEffect, TimedEffect> _timedEffects = new Dictionary<ScriptableTimedEffect, TimedEffect>();
-    private List<Effect> _effects = new List<Effect>();
+    private Dictionary<ScriptableEffect, Effect> _effects = new Dictionary<ScriptableEffect, Effect>();
 
-    public List<string> timedEffectsName = new List<string>();
-    public List<string> effectsName = new List<string>();
+    public List<DebugEffectChecker> debugEffects = new List<DebugEffectChecker>();
+
 
     public virtual void Awake()
     {
@@ -33,7 +33,26 @@ public class Pawn : MonoBehaviour, IDamageable
 
     public virtual void Start()
     {
+        StartCoroutine(IeCheck());
+    }
 
+    IEnumerator IeCheck()
+    {
+        while (true)
+        {
+            debugEffects.Clear();
+            foreach (var item in _effects)
+            {
+                DebugEffectChecker ef = new DebugEffectChecker();
+
+                ef.effectName = item.Key.effectName;
+                ef.currentValue = item.Value.currentValue;
+                ef.maxValue = item.Value.maxValue;
+
+                debugEffects.Add(ef);
+            }
+            yield return new WaitForSecondsRealtime(0.5f);
+        }
     }
 
     public virtual void Update()
@@ -91,6 +110,7 @@ public class Pawn : MonoBehaviour, IDamageable
 
     public void AddTimedEffect(TimedEffect effect)
     {
+        Debug.Log("add new timed effect " + effect.Effect.name);
         if (_timedEffects.ContainsKey(effect.Effect))
         {
             _timedEffects[effect.Effect].Activate();
@@ -100,6 +120,23 @@ public class Pawn : MonoBehaviour, IDamageable
             _timedEffects.Add(effect.Effect, effect);
             effect.Activate();
         }
+    }
+
+    public void RemoveTimedEffect(TimedEffect timedEffect)
+    {
+        if (_timedEffects.ContainsKey(timedEffect.Effect) == false)
+            return;
+
+        _timedEffects[timedEffect.Effect].End();
+        _timedEffects.Remove(timedEffect.Effect);
+    }
+
+    public TimedEffect GetTimedEffect(ScriptableTimedEffect scriptableTimedEffect)
+    {
+        if (_timedEffects.ContainsKey(scriptableTimedEffect) == false)
+            return null;
+
+        return _timedEffects.FirstOrDefault(te => te.Key == scriptableTimedEffect).Value;
     }
 
     public void EffectsTimeTick()
@@ -127,41 +164,59 @@ public class Pawn : MonoBehaviour, IDamageable
         }
     }
 
-    public GameObject GetGameObject()
-    {
-        return gameObject;
-    }
 
     public List<ScriptableTimedEffect> GetTimedEffects()
     {
         return _timedEffects.Keys.ToList();
     }
 
-    public List<Effect> GetEffects()
+    public List<ScriptableEffect> GetEffects()
     {
-        return _effects;
+        return _effects.Keys.ToList();
     }
 
-    public void AddEffect(Effect effect)
+    public void AddEffect(Effect newEffect)
     {
-        if (_effects.Any(ef => ef.GetType().Name == effect.GetType().Name)) return;
-        _effects.Add(effect);
+        Debug.Log($"Add new effect {newEffect.effect.effectName}");
+        if (_effects.ContainsKey(newEffect.effect))
+        {
+            // сами в себя кастанем значение
+            _effects[newEffect.effect].Increase(newEffect.currentValue);
+        }
+        else
+        {
+            _effects.Add(newEffect.effect, newEffect);
+        }
     }
 
-    public void RemoveTimedEffect(TimedEffect timedEffect)
+    public void RemoveEffect(ScriptableEffect effect)
     {
-        if (_timedEffects.ContainsKey(timedEffect.Effect) == false)
-            return;
+        if (!_effects.ContainsKey(effect)) return;
 
-        _timedEffects[timedEffect.Effect].End();
-        _timedEffects.Remove(timedEffect.Effect);
+        _effects[effect].Deactivate();
     }
 
-    public TimedEffect GetTimedEffect(ScriptableTimedEffect scriptableTimedEffect)
+
+
+    public GameObject GetGameObject()
     {
-        if (_timedEffects.ContainsKey(scriptableTimedEffect) == false)
+        return gameObject;
+    }
+
+    public Effect GetEffect(ScriptableEffect effect)
+    {
+        if (_effects.ContainsKey(effect) == false)
             return null;
 
-        return _timedEffects.FirstOrDefault(te => te.Key == scriptableTimedEffect).Value;
+        return _effects.FirstOrDefault(te => te.Key == effect).Value;
     }
+
+}
+
+[System.Serializable]
+public class DebugEffectChecker
+{
+    public string effectName;
+    public int currentValue;
+    public int maxValue;
 }

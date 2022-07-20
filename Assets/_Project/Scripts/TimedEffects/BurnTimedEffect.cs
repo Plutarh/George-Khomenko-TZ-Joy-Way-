@@ -6,7 +6,7 @@ public class BurnTimedEffect : TimedEffect
 {
     IDamageable _target;
     GameObject _whoUse;
-    BurnScriptableEffect _burnScriptableEffect;
+    BurnScriptableTimedEffect _burnScriptableEffect;
     ParticleSystem _burningFX;
 
     float _timeToHit;
@@ -20,13 +20,13 @@ public class BurnTimedEffect : TimedEffect
     public BurnTimedEffect(ScriptableTimedEffect buff, GameObject targetObj) : base(buff, targetObj)
     {
         _target = targetObj.GetComponent<IDamageable>();
-        _whoUse = damageData.owner;
+        // _whoUse = damageData.owner;
     }
 
     protected override void ApplyEffect()
     {
         if (_target == null) return;
-        _burnScriptableEffect = (BurnScriptableEffect)Effect;
+        _burnScriptableEffect = (BurnScriptableTimedEffect)Effect;
 
         CreateFX();
         ApplyMaterialColor();
@@ -48,9 +48,8 @@ public class BurnTimedEffect : TimedEffect
     public override void Tick(float delta)
     {
         base.Tick(delta);
-
+        Debug.Log("Burn Tick");
         if (IsFinished) return;
-        if (IsVisual) return;
 
         _timeToHit -= delta;
         if (_timeToHit <= 0)
@@ -116,6 +115,8 @@ public class BurnTimedEffect : TimedEffect
         }
 
         _burningFX.transform.localPosition = Vector3.zero;
+
+        Debug.Log("Create burn fx");
     }
 
 

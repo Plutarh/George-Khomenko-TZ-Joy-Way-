@@ -41,13 +41,13 @@ public class ParticleProjectile : Projectile
 
         if (damagable == null) return;
         int i = 0;
+        Hit(damagable);
+        // while (i < numCollisionEvents)
+        // {
 
-        while (i < numCollisionEvents)
-        {
 
-            Hit(damagable);
-            i++;
-        }
+        //     i++;
+        // }
     }
 
     public override void Hit(IDamageable damageable)
