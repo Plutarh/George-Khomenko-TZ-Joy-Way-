@@ -23,7 +23,9 @@ public class Pistol : Weapon
         damageData.damage = _damage;
         damageData.owner = _owner;
         createdProjectile.SetDamageData(damageData);
-        _effectsOnHit.ForEach(effect => createdProjectile.AddScriptableEffect(effect));
+
+        _effectsInteractions.ForEach(ef => createdProjectile.AddEffectInteraction(ef));
+        _timedEffectOnHit.ForEach(effect => createdProjectile.AddScriptableTimedEffect(effect));
 
         Vector3 projectileDirection = point - _muzzle.transform.position;
         createdProjectile.SetDirection(projectileDirection.normalized * _projectileMoveSpeed);

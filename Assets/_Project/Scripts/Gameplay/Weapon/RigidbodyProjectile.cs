@@ -51,16 +51,9 @@ public class RigidbodyProjectile : Projectile
 
     public override void Hit(IDamageable damageable)
     {
-        base.Hit(damageable);
         _damageData.velocity = _body.velocity;
-        damageable.TakeDamage(_damageData);
+        base.Hit(damageable);
 
-        foreach (var item in damageable.GetTimedEffects())
-        {
-            Debug.LogError($"{item.name}");
-        }
-
-        _effectsOnHit.ForEach(effect => damageable.AddTimedEffect(effect.InitializeEffect(damageable.GetGameObject(), _damageData)));
 
         DestroyProjectile();
     }

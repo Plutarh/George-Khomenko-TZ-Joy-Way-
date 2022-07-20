@@ -12,6 +12,7 @@ public class InputService : MonoBehaviour
     [SerializeField] private KeyCode _rightHandPickDropKey = KeyCode.E;
     [SerializeField] private KeyCode _jumpKey;
     [SerializeField] private KeyCode _cursorConfineKey;
+    [SerializeField] private KeyCode _restartKey = KeyCode.F1;
 
     private Vector2 _moveInput;
     private Vector2 _lookInput;
@@ -60,6 +61,9 @@ public class InputService : MonoBehaviour
             OnHandPickDropButtonDown?.Invoke(EHandType.Left);
         if (Input.GetKeyDown(_rightHandPickDropKey))
             OnHandPickDropButtonDown?.Invoke(EHandType.Right);
+
+        if (Input.GetKeyDown(_restartKey))
+            GlobalEvents.OnRestartBtnDown?.Invoke();
     }
 
     void ReadLookInput()

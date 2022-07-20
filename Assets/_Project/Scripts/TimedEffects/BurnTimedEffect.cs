@@ -88,6 +88,7 @@ public class BurnTimedEffect : TimedEffect
     void CreateFX()
     {
         if (_burnScriptableEffect.burnFX == null) return;
+        if (_burningFX != null) GameObject.Destroy(_burningFX.gameObject);
 
         _burningFX = GameObject.Instantiate(_burnScriptableEffect.burnFX, _target.GetGameObject().transform.position, Quaternion.AngleAxis(90, Vector3.right));
         _burningFX.transform.SetParent(_target.GetGameObject().transform);

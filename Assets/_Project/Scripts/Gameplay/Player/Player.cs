@@ -9,7 +9,6 @@ public class Player : Pawn
     public Transform CameraRoot => _cameraRoot;
 
     [SerializeField] private Transform _cameraRoot;
-    private InputService _inputService;
     [SerializeField] private LayerMask aimLayers;
 
     Camera _mainCamera;
@@ -80,11 +79,11 @@ public class Player : Pawn
             {
                 _throwAnimationTimeout = Time.time + _throwAnimationDelay;
                 string animationName = weaponInHand.AnimationName + (handType == EHandType.Left ? "_M" : string.Empty);
+
                 _delayedWeaponToShoot.Add(weaponInHand);
                 _animator.CrossFade(animationName, 0.1f, 1);
-                Debug.Log($"Player animation {animationName}");
-                _currentCombatName = animationName;
 
+                _currentCombatName = animationName;
             }
         }
         else

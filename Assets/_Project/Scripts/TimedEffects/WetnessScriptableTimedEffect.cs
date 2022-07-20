@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "HitEffects/WetnessEffect")]
-public class WetnessScriptableEffect : ScriptableTimedEffect
+public class WetnessScriptableTimedEffect : ScriptableTimedEffect
 {
     public ParticleSystem wetnessFX;
 

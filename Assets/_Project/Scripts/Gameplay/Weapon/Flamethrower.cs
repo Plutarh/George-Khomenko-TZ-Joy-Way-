@@ -30,6 +30,9 @@ public class Flamethrower : Weapon
         Vector3 projectileDirection = point - _muzzle.transform.position;
         _flameThrower.SetDirection(projectileDirection.normalized);
 
+        _effectsInteractions.ForEach(ef => _flameThrower.AddEffectInteraction(ef));
+        _timedEffectOnHit.ForEach(effect => _flameThrower.AddScriptableTimedEffect(effect));
+
         _flameThrower.Emit(true);
     }
 

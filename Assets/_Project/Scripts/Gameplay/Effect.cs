@@ -11,6 +11,7 @@ public abstract class Effect
     }
 }
 
+
 [System.Serializable]
 public class Wetness : Effect
 {

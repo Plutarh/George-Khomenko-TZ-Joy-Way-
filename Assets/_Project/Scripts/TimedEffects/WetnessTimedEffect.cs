@@ -4,7 +4,7 @@ public class WetnessTimedEffect : TimedEffect
 {
     IDamageable _target;
     GameObject _whoUse;
-    WetnessScriptableEffect _wetnessScriptableEffect;
+    WetnessScriptableTimedEffect _wetnessScriptableEffect;
     ParticleSystem _wetnessFx;
 
     float _timeToHit;
@@ -24,7 +24,7 @@ public class WetnessTimedEffect : TimedEffect
     protected override void ApplyEffect()
     {
         if (_target == null) return;
-        _wetnessScriptableEffect = (WetnessScriptableEffect)Effect;
+        _wetnessScriptableEffect = (WetnessScriptableTimedEffect)Effect;
 
         CreateFX();
         ApplyMaterialColor();
@@ -71,6 +71,7 @@ public class WetnessTimedEffect : TimedEffect
     void CreateFX()
     {
         if (_wetnessScriptableEffect.wetnessFX == null) return;
+        if (_wetnessFx != null) GameObject.Destroy(_wetnessFx.gameObject);
 
         _wetnessFx = GameObject.Instantiate(_wetnessScriptableEffect.wetnessFX, _target.GetGameObject().transform.position, Quaternion.AngleAxis(90, Vector3.right));
         _wetnessFx.transform.SetParent(_target.GetGameObject().transform);

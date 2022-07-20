@@ -44,14 +44,16 @@ public class ParticleProjectile : Projectile
 
         while (i < numCollisionEvents)
         {
-            DamageData damageData = new DamageData();
 
-            damageData.damage = 1;
-
-            damagable.TakeDamage(damageData);
+            Hit(damagable);
             i++;
         }
     }
 
+    public override void Hit(IDamageable damageable)
+    {
+        base.Hit(damageable);
 
+
+    }
 }

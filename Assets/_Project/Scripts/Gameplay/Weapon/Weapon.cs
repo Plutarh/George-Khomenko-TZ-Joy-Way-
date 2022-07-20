@@ -14,12 +14,14 @@ public class Weapon : MonoBehaviour, IPickable
     [SerializeField] protected float _damage;
 
     protected GameObject _owner;
-    [SerializeField] protected List<ScriptableTimedEffect> _effectsOnHit = new List<ScriptableTimedEffect>();
+    [SerializeField] protected List<ScriptableTimedEffect> _timedEffectOnHit = new List<ScriptableTimedEffect>();
+    [SerializeField] protected List<ScriptableEffect> _effects = new List<ScriptableEffect>();
 
     [SerializeField] private string _weaponName;
     [SerializeField] private bool _isIKRequire;
     [SerializeField] private bool _isAnimationRequire;
     [SerializeField] private string _animationName;
+    [SerializeField] protected List<EffectsInteractions> _effectsInteractions = new List<EffectsInteractions>();
 
     private bool _isPicked;
 
@@ -37,16 +39,6 @@ public class Weapon : MonoBehaviour, IPickable
 #endif
 
     public virtual void Awake()
-    {
-
-    }
-
-    void Start()
-    {
-
-    }
-
-    void Update()
     {
 
     }
@@ -80,4 +72,3 @@ public class Weapon : MonoBehaviour, IPickable
         GlobalEvents.OnWeaponDestroyed?.Invoke(_weaponName);
     }
 }
-

@@ -23,6 +23,9 @@ public class Pawn : MonoBehaviour, IDamageable
     private Dictionary<ScriptableTimedEffect, TimedEffect> _timedEffects = new Dictionary<ScriptableTimedEffect, TimedEffect>();
     private List<Effect> _effects = new List<Effect>();
 
+    public List<string> timedEffectsName = new List<string>();
+    public List<string> effectsName = new List<string>();
+
     public virtual void Awake()
     {
         ResetHealth();
@@ -36,6 +39,20 @@ public class Pawn : MonoBehaviour, IDamageable
     public virtual void Update()
     {
         EffectsTimeTick();
+
+        // timedEffectsName.Clear();
+
+        // foreach (var te in _timedEffects)
+        // {
+        //     timedEffectsName.Add(te.Key.name);
+        // }
+
+        // effectsName.Clear();
+
+        // foreach (var e in _effects)
+        // {
+        //     effectsName.Add(e.GetType().Name);
+        // }
     }
 
     public virtual void TakeDamage(DamageData damageData)
@@ -85,15 +102,6 @@ public class Pawn : MonoBehaviour, IDamageable
         }
     }
 
-    public void RemoveEffect(TimedEffect effect)
-    {
-        if (_timedEffects.ContainsKey(effect.Effect) == false)
-            return;
-
-        _timedEffects[effect.Effect].End();
-        _timedEffects.Remove(effect.Effect);
-    }
-
     public void EffectsTimeTick()
     {
         if (_timedEffects.Count <= 0) return;
@@ -138,5 +146,22 @@ public class Pawn : MonoBehaviour, IDamageable
     {
         if (_effects.Any(ef => ef.GetType().Name == effect.GetType().Name)) return;
         _effects.Add(effect);
+    }
+
+    public void RemoveTimedEffect(TimedEffect timedEffect)
+    {
+        if (_timedEffects.ContainsKey(timedEffect.Effect) == false)
+            return;
+
+        _timedEffects[timedEffect.Effect].End();
+        _timedEffects.Remove(timedEffect.Effect);
+    }
+
+    public TimedEffect GetTimedEffect(ScriptableTimedEffect scriptableTimedEffect)
+    {
+        if (_timedEffects.ContainsKey(scriptableTimedEffect) == false)
+            return null;
+
+        return _timedEffects.FirstOrDefault(te => te.Key == scriptableTimedEffect).Value;
     }
 }

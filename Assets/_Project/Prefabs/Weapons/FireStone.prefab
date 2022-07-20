@@ -106,11 +106,14 @@ MonoBehaviour:
   _muzzle: {fileID: 7203680193117999958}
   _projectilePrefab: {fileID: 4422040020291648024, guid: 21b5b518ba66de8408a0b379dee2b6bf, type: 3}
   _damage: 1
-  _owner: {fileID: 0}
-  _effectsOnHit:
+  _timedEffectOnHit:
   - {fileID: 11400000, guid: 7f9263428f110f54694be8769c197786, type: 2}
+  _effects: []
   _weaponName: FireStone
   _isIKRequire: 1
+  _isAnimationRequire: 0
+  _animationName: 
+  _effectsInteractions: []
 --- !u!1 &6930920980059853133
 GameObject:
   m_ObjectHideFlags: 0

@@ -106,12 +106,19 @@ MonoBehaviour:
   _muzzle: {fileID: 5553879059737250431}
   _projectilePrefab: {fileID: 7238814054242212990, guid: 00dd56c57bd4eda42addc85ae3503099, type: 3}
   _damage: 0
-  _effectsOnHit: []
+  _timedEffectOnHit:
+  - {fileID: 11400000, guid: a5d9ad09f80065c49b8a9864edb4d126, type: 2}
+  _effects: []
   _weaponName: WaterStone
   _isIKRequire: 0
   _isAnimationRequire: 1
   _animationName: Throw
+  _effectsInteractions:
+  - timedEffect: {fileID: 11400000, guid: 7f9263428f110f54694be8769c197786, type: 2}
+    damage: 0
+    eEfectInrecation: 4
   _throwForce: 25
+  _wetness: 0
 --- !u!1 &7093043300231647058
 GameObject:
   m_ObjectHideFlags: 0
